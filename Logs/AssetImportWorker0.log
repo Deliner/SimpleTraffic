@@ -228,3 +228,97 @@ AssetImportParameters requested are different than current active one (requested
   custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
   custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 255.173432 seconds.
+  path: Assets/Demo/Materials
+  artifactKey: Guid(778c2dd3c5c1648789d2535c494e4b46) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Demo/Materials using Guid(778c2dd3c5c1648789d2535c494e4b46) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ef44181131f64beb91a2aeb099a1b646') in 0.009654 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.150417 seconds.
+  path: Assets/Demo/Materials/DevTexture_Grey01.mat
+  artifactKey: Guid(e4094ea99d0834a10bb90fa19290e521) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Demo/Materials/DevTexture_Grey01.mat using Guid(e4094ea99d0834a10bb90fa19290e521) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fc1fc623c990127f77138a5d81bd85da') in 0.077676 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000013 seconds.
+  path: Assets/Demo/Materials/FlatColor_White.mat
+  artifactKey: Guid(b4cbfcd69b98841df961bd455c10d6f8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Demo/Materials/FlatColor_White.mat using Guid(b4cbfcd69b98841df961bd455c10d6f8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4b18f87dc557093251a0137eb7be162b') in 0.011519 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000014 seconds.
+  path: Assets/Demo/Materials/DevTexture_Grey03.mat
+  artifactKey: Guid(606a134b00f3e45ec8db1bd4b458b349) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Demo/Materials/DevTexture_Grey03.mat using Guid(606a134b00f3e45ec8db1bd4b458b349) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '20e685160d590616d8e8eaa684a60d65') in 0.013126 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000014 seconds.
+  path: Assets/Demo/Materials/DevTexture_Orange00.mat
+  artifactKey: Guid(4c0df8aa25099409eabdd4801f63d5cd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Demo/Materials/DevTexture_Orange00.mat using Guid(4c0df8aa25099409eabdd4801f63d5cd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '221bf56842efd3db838ae0449e207f6f') in 0.015232 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 1.914223 seconds.
+  path: Assets/Demo/Textures
+  artifactKey: Guid(2e17af528fcdd49618c865583624b05e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Demo/Textures using Guid(2e17af528fcdd49618c865583624b05e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd82e9f2f3df1a8d85d112c51174cd31a') in 0.006411 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 1.201518 seconds.
+  path: Assets/Demo/Textures/DevTexture_Grey02.png
+  artifactKey: Guid(d7a5f1c4ae2934568ab30f8c28d20bc6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Demo/Textures/DevTexture_Grey02.png using Guid(d7a5f1c4ae2934568ab30f8c28d20bc6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b07be3f2b06ecc8d05569873fb7d1f78') in 0.014990 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000015 seconds.
+  path: Assets/Demo/Textures/DevTexture_Orange00.png
+  artifactKey: Guid(c64f077933b3f4666929ece4d753dd50) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Demo/Textures/DevTexture_Orange00.png using Guid(c64f077933b3f4666929ece4d753dd50) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c808a83bf856797ef54a95d61e98a75a') in 0.007840 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 10.421656 seconds.
+  path: Assets/SimpleTraffic/AgentPrefabs/Pedestrian.prefab
+  artifactKey: Guid(13e94d706a97743bca48ccf3d1ac0d6c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SimpleTraffic/AgentPrefabs/Pedestrian.prefab using Guid(13e94d706a97743bca48ccf3d1ac0d6c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1fb5230fd011b7bdda94ec26bc5cb20b') in 0.021224 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000013 seconds.
+  path: Assets/SimpleTraffic/AgentPrefabs/TrainCarriage.prefab
+  artifactKey: Guid(e25b77a78554a41a3820602008efe36b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SimpleTraffic/AgentPrefabs/TrainCarriage.prefab using Guid(e25b77a78554a41a3820602008efe36b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fcb6d73afeda900c78799bba141ead6e') in 0.015814 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 2.147811 seconds.
+  path: Assets/SimpleTraffic/NavSectionPrefabs/Road_Crossroad.prefab
+  artifactKey: Guid(549514ad6753145a09f1ead1e306524c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SimpleTraffic/NavSectionPrefabs/Road_Crossroad.prefab using Guid(549514ad6753145a09f1ead1e306524c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fc5ab54c08ee190e885c9dae01ef2998') in 0.039918 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000014 seconds.
+  path: Assets/SimpleTraffic/NavSectionPrefabs/Road_StraightCrossing.prefab
+  artifactKey: Guid(b18d779e67dce46efa9ff9d4f611d113) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SimpleTraffic/NavSectionPrefabs/Road_StraightCrossing.prefab using Guid(b18d779e67dce46efa9ff9d4f611d113) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c2e3d4ecd0c09751ce9212a4a50ed5a4') in 0.014169 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 13.327237 seconds.
+  path: Assets/SimpleTraffic/NewSections/Road_Straight.prefab
+  artifactKey: Guid(96b38b8f3be3cad4394dbebee93e95df) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SimpleTraffic/NewSections/Road_Straight.prefab using Guid(96b38b8f3be3cad4394dbebee93e95df) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '52370cb40c07f1aae3912c32188f2dd7') in 0.009223 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000017 seconds.
+  path: Assets/SimpleTraffic/NewSections/Road_TJunction.prefab
+  artifactKey: Guid(c278c5baa9814bf4d8e7348673d833f2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SimpleTraffic/NewSections/Road_TJunction.prefab using Guid(c278c5baa9814bf4d8e7348673d833f2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '635709c7a25498484ab262304004887d') in 0.013159 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000017 seconds.
+  path: Assets/SimpleTraffic/NewSections/Track_Station.prefab
+  artifactKey: Guid(813049eacef2c0a4caf488ff28009a08) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/SimpleTraffic/NewSections/Track_Station.prefab using Guid(813049eacef2c0a4caf488ff28009a08) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e147b4cbec40bbe373c5abc156f0464d') in 0.010778 seconds 
+Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
+AssetImportWorker is now disconnected from the server
+Process exiting
+Exiting without the bug reporter. Application will terminate with return code 0
