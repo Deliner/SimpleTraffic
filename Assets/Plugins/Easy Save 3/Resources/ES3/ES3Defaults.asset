@@ -30,8 +30,8 @@ MonoBehaviour:
     serializationDepthLimit: 64
     assemblyNames:
     - Assembly-CSharp
-    - Purchasing.Common
     - Assembly-CSharp-firstpass
+    - Purchasing.Common
     - Analytics
     showAdvancedSettings: 0
   addMgrToSceneAutomatically: 0
