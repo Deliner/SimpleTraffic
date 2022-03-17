@@ -10,6 +10,7 @@ namespace Common
     public abstract class BaseScreenManager : MonoBehaviour
     {
         [SerializeField] private Canvas canvas;
+        [SerializeField] protected SafeArea safeArea;
 
         private readonly Stack<GameObject> _currentPopups = new();
         private readonly Stack<GameObject> _currentPanels = new();
