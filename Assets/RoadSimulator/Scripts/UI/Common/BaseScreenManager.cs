@@ -14,8 +14,8 @@ namespace Common
 
         private readonly Stack<GameObject> _currentPopups = new();
         private readonly Stack<GameObject> _currentPanels = new();
-
-        public virtual void ClosePopup()
+     
+        public void ClosePopup()
         {
             var topmostPopup = _currentPopups.Pop();
             if (topmostPopup == null)
