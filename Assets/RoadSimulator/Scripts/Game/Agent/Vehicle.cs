@@ -56,7 +56,7 @@ namespace Kawaiiju
 
 		public override void OnTriggerEnter(Collider col)
 		{
-			if(col.tag == "RoadConnection")
+			if(col.CompareTag("RoadConnection"))
 			{
 				NavConnection connection = col.GetComponent<NavConnection>();
 				if(connection.navSection != m_CurrentNavSection)

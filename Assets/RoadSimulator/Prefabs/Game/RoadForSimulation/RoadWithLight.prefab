@@ -1063,7 +1063,7 @@ GameObject:
   - component: {fileID: 4518762572031656}
   - component: {fileID: 114748551579558108}
   m_Layer: 0
-  m_Name: Road_StraightCrossing
+  m_Name: RoadWithLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -24,7 +24,6 @@ namespace Common
 
                 i++;
             }
-
             return false;
         }
 

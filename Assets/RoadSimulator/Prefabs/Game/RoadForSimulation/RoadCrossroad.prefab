@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 4233808409161112}
   - component: {fileID: 114784332008515400}
   m_Layer: 0
-  m_Name: Road_Crossroad
+  m_Name: RoadCrossroad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

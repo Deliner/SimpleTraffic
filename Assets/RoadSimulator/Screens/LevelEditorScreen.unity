@@ -154,6 +154,7 @@ Transform:
   - {fileID: 564424306}
   - {fileID: 599826989}
   - {fileID: 1030634637}
+  - {fileID: 569660897}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -234,14 +235,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 167772977}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 832085601}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &408003491
 GameObject:
   m_ObjectHideFlags: 0
@@ -485,7 +486,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -508,14 +509,64 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 564424303}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 331, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 99587907}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!1 &569660896
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 569660897}
+  - component: {fileID: 569660898}
+  m_Layer: 0
+  m_Name: RoadResourceHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &569660897
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 569660896}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 99587907}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &569660898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 569660896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a1d19306d64914b2abb0096d3ca1ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Road: {fileID: 1168539446821712, guid: 9c9db6fce7dc6fd41b0354fb8a87bb6b, type: 3}
+  Corner: {fileID: 1698348551958270, guid: 069c8f589fbb9a446b2f4ad49b2e6da4, type: 3}
+  Crossroad: {fileID: 1044478496400794, guid: 980505115ad4c584583af52be363714b, type: 3}
+  HalfRoad: {fileID: 1698348551958270, guid: 45a2e0e06060b9c42a04f09c34897a50, type: 3}
+  TCrossroad: {fileID: 1858811064698484, guid: 7c4b9c501c0affd488d935224e72b537, type: 3}
+  DualRoad: {fileID: 1138728264224080, guid: 6d83e94a99f859a42a8544cdb075c40b, type: 3}
 --- !u!1 &599826986
 GameObject:
   m_ObjectHideFlags: 0
@@ -903,6 +954,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 3cf833dff23dd3e44998c8cf1ded8fb8,
         type: 3}
+    - target: {fileID: 7148426241764116818, guid: cc1490ceeb91c4734b31291d7d68d7fb,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7148426241764116820, guid: cc1490ceeb91c4734b31291d7d68d7fb,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1119,6 +1175,7 @@ MonoBehaviour:
   safeArea: {fileID: 1379346979}
   toolListView: {fileID: 983470718}
   camera: {fileID: 564424305}
+  resourcesHolder: {fileID: 569660898}
 --- !u!224 &1142120093 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6943555570390740300, guid: 28ebb92f2a49b584e856529e9034929a,

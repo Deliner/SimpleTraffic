@@ -12,6 +12,8 @@ public class LevelEditorInputHandler
 
     private Event _currentEvent;
 
+    private Vector3 _oldMousePosition = Vector3.zero;
+
     public LevelEditorInputHandler(ICallback callback)
     {
         _callback = callback;
@@ -44,6 +46,15 @@ public class LevelEditorInputHandler
         else if ((_currentEvent = IsCameraStartMoveEvent()) != null)
         {
             _state = State.CheckPressedMovement;
+        }
+        else if (_oldMousePosition != Input.mousePosition)
+        {
+            _oldMousePosition = Input.mousePosition;
+            _callback.OnNewMousePosition(Input.mousePosition);
+        }
+        else if (Input.GetAxis("Mouse ScrollWheel") != 0)
+        {
+            _callback.OnRotate(Input.GetAxis("Mouse ScrollWheel") < 0);
         }
     }
 
@@ -115,6 +126,10 @@ public class LevelEditorInputHandler
     {
         public void OnPressedMove(Vector3 oldPosition, Vector3 newPosition);
         public void OnClick(Vector3 position);
+
+        public void OnNewMousePosition(Vector3 position);
+
+        public void OnRotate(bool clockwise);
     }
 
     private enum State

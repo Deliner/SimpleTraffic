@@ -5,11 +5,11 @@ namespace Kawaiiju.Traffic.LevelEditor
 {
     public static class ToolManager
     {
-        private static readonly List<Tool> _toolList = new List<Tool>() { new Road(), new Corner(), new Crossroad(), new ShortRoad(), new TCrossroad() };
+        private static readonly List<Tool> ToolList = new() { new Road(), new Corner(), new Crossroad(), new HalfRoad(), new TCrossroad(), new DualRoad() };
 
         public static List<Tool> GetToolList()
         {
-            return _toolList;
+            return ToolList;
         }
     }
 }

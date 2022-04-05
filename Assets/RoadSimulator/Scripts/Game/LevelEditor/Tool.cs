@@ -1,33 +1,45 @@
-﻿namespace Kawaiiju.Traffic.LevelEditor
+﻿using UnityEngine;
+
+namespace Kawaiiju.Traffic.LevelEditor
 {
     public abstract class Tool
     {
         public abstract void Action();
+       
         public abstract string GetToolName();
     }
-
+    
     public class SelectTool : Tool
     {
         public override void Action()
         {
-            throw new System.NotImplementedException();
         }
 
         public override string GetToolName()
         {
-            throw new System.NotImplementedException();
+            return "SelectTool";
         }
     }
 
-    public abstract class ObjectTool : Tool
+    public abstract class ModifyTool : Tool
     {
         
     }
 
-    public class Road : ObjectTool
+    public abstract class RoadTool : Tool
+    {
+        public abstract RoadFactory.Type GetRoadType();
+    }
+
+    public class Road : RoadTool
     {
         public override void Action()
         {
+        }
+
+        public override RoadFactory.Type GetRoadType()
+        {
+            return RoadFactory.Type.Road;
         }
 
         public override string GetToolName()
@@ -36,10 +48,15 @@
         }
     }
 
-    public class Corner : ObjectTool
+    public class Corner : RoadTool
     {
         public override void Action()
         {
+        }
+
+        public override RoadFactory.Type GetRoadType()
+        {
+            return RoadFactory.Type.Corner;
         }
 
         public override string GetToolName()
@@ -48,10 +65,15 @@
         }
     }
 
-    public class Crossroad : ObjectTool
+    public class Crossroad : RoadTool
     {
         public override void Action()
         {
+        }
+
+        public override RoadFactory.Type GetRoadType()
+        {
+            return RoadFactory.Type.Crossroad;
         }
 
         public override string GetToolName()
@@ -60,10 +82,15 @@
         }
     }
 
-    public class TCrossroad : ObjectTool
+    public class TCrossroad : RoadTool
     {
         public override void Action()
         {
+        }
+
+        public override RoadFactory.Type GetRoadType()
+        {
+            return RoadFactory.Type.TCrossroad;
         }
 
         public override string GetToolName()
@@ -72,15 +99,37 @@
         }
     }
 
-    public class ShortRoad : ObjectTool
+    public class HalfRoad : RoadTool
     {
         public override void Action()
         {
         }
 
+        public override RoadFactory.Type GetRoadType()
+        {
+            return RoadFactory.Type.HalfRoad;
+        }
+
         public override string GetToolName()
         {
-            return "ShortRoad";
+            return "HalfRoad";
+        }
+    }
+    
+    public class DualRoad : RoadTool
+    {
+        public override void Action()
+        {
+        }
+
+        public override RoadFactory.Type GetRoadType()
+        {
+            return RoadFactory.Type.DualRoad;
+        }
+
+        public override string GetToolName()
+        {
+            return "DualRoad";
         }
     }
 }

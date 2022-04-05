@@ -66,7 +66,7 @@ GameObject:
   - component: {fileID: 4737159651474342}
   - component: {fileID: 114186739460785704}
   m_Layer: 0
-  m_Name: Road_Straight
+  m_Name: RoadDouble
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

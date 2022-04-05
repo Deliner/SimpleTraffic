@@ -8,10 +8,11 @@ using UnityEngine.Serialization;
 
 public class LevelEditorScreenManager : BaseScreenManager, ToolListView.ICallback
 {
-    [FormerlySerializedAs("toolHolderView")] [SerializeField]
-    private ToolListView toolListView;
+    [SerializeField] private ToolListView toolListView;
 
     [SerializeField] private Camera camera;
+
+    [SerializeField] private RoadResourcesHolder resourcesHolder;
 
     private LevelEditorInputHandler _inputHandler;
     private LevelEditorWorldHolder _levelEditorWorldHolder;
@@ -19,8 +20,10 @@ public class LevelEditorScreenManager : BaseScreenManager, ToolListView.ICallbac
 
     private void Start()
     {
+        var roadFactory = new RoadFactory(resourcesHolder.GetResources());
+        
         _cursorPositionChecker = new CursorPositionChecker(safeArea.transform);
-        _levelEditorWorldHolder = new LevelEditorWorldHolder(camera, _cursorPositionChecker);
+        _levelEditorWorldHolder = new LevelEditorWorldHolder(camera, _cursorPositionChecker, roadFactory);
         _inputHandler = new LevelEditorInputHandler(_levelEditorWorldHolder);
 
         toolListView.Init(this, ToolManager.GetToolList());
@@ -29,7 +32,6 @@ public class LevelEditorScreenManager : BaseScreenManager, ToolListView.ICallbac
     private void Update()
     {
         _inputHandler.HandleInput();
-        _levelEditorWorldHolder.Update();
 
         if (Input.GetKeyUp(KeyCode.Space))
         {
