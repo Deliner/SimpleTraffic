@@ -1,18 +1,16 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace Kawaiiju.Traffic.LevelEditor
+namespace RoadSimulator.Scripts.Game.LevelEditor
 {
-    public class PlaceObject : MonoBehaviour
+    public class LevelEditorRoad : MonoBehaviour
     {
-        [SerializeField] private MeshRenderer[] MeshRenderers;
+        [SerializeField] private MeshRenderer[] meshRenderers;
 
-        [SerializeField] private Material Overlapped;
-        [SerializeField] private Material Normal;
+        [SerializeField] private Material overlapped;
+        [SerializeField] private Material normal;
 
-        [SerializeField] private Transform[] Transforms;
+        [SerializeField] private Transform[] transforms;
 
         public bool isOverlapped { get; private set; }
 
@@ -23,19 +21,19 @@ namespace Kawaiiju.Traffic.LevelEditor
         public void SetPlaced()
         {
             _isPlaced = true;
-            ApplyMaterial(Normal);
+            ApplyMaterial(normal);
         }
 
         public IEnumerator GetRoadConnections()
         {
-            return Transforms.GetEnumerator();
+            return transforms.GetEnumerator();
         }
 
         private void OnTriggerEnter(Collider other)
         {
             if (!_isPlaced)
             {
-                ApplyMaterial(Overlapped);
+                ApplyMaterial(overlapped);
                 isOverlapped = true;
 
                 if (_enteredCollider.ContainsKey(other))
@@ -69,7 +67,7 @@ namespace Kawaiiju.Traffic.LevelEditor
 
                 if (_enteredCollider.Count == 0)
                 {
-                    ApplyMaterial(Normal);
+                    ApplyMaterial(normal);
                     isOverlapped = false;
                 }
             }
@@ -77,9 +75,9 @@ namespace Kawaiiju.Traffic.LevelEditor
 
         private void ApplyMaterial(Material material)
         {
-            foreach (var renderer in MeshRenderers)
+            foreach (var meshRenderer in meshRenderers)
             {
-                renderer.material = material;
+                meshRenderer.material = material;
             }
         }
     }

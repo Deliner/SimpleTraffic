@@ -1,35 +1,37 @@
-﻿using System.Security.Cryptography;
-using UnityEditor;
+﻿using System;
+using JetBrains.Annotations;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
-namespace Kawaiiju.Traffic.LevelEditor
+namespace RoadSimulator.Scripts.Game.LevelEditor
 {
-    public class LevelEditorWorldHolder : LevelEditorInputHandler.ICallback
+    public class LevelEditorWorldHolder : IRoadBuilder
     {
-        private static readonly Tool DefaultTool = new SelectTool();
-        private Tool _currentTool = DefaultTool;
+        private static readonly IRoadBuilderTool DefaultTool = new SelectTool();
+        private IRoadBuilderTool _currentTool = DefaultTool;
 
-        private readonly IMousePositionChecker _mouseChecker;
-        private readonly RoadFactory _roadFactory;
-        private readonly Camera _camera;
+        private readonly RoadObjectFactory _roadFactory;
 
-        private readonly LevelEditorWorld _world = new();
+        private readonly LevelEditorWorld _world;
 
         private Quaternion _currentObjectRotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
         private GameObject _cursorObject;
 
-        private Vector3 aboveCameraHeightVector => new(0.0f, _camera.transform.position.y, 0.0f);
+        private readonly ICallback _callback;
 
-        public LevelEditorWorldHolder(Camera camera, IMousePositionChecker mouseChecker, RoadFactory roadFactory)
+        public LevelEditorWorldHolder(ICallback callback, RoadObjectFactory.Resources resources)
         {
-            _mouseChecker = mouseChecker;
-            _roadFactory = roadFactory;
-            _camera = camera;
+            _roadFactory = new RoadObjectFactory(resources);
+            _world = new LevelEditorWorld();
+            _callback = callback;
         }
 
-        public void UpdateSelectedTool(Tool tool)
+        public void UpdateSelectedTool(ITool tool)
         {
-            _currentTool = tool;
+            if (tool is not IRoadBuilderTool builderTool) //TODO why it works?
+                throw new Exception($"Expected {typeof(IRoadBuilderTool)}");
+
+            _currentTool = builderTool;
             _currentObjectRotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
 
             DestroyCursorObject();
@@ -41,15 +43,102 @@ namespace Kawaiiju.Traffic.LevelEditor
             _currentTool = DefaultTool;
             DestroyCursorObject();
         }
-        
+
         public bool ReadyToSimulate() => _world.LevelIsOk();
 
+        public void OnClick(Vector3 position)
+        {
+            _currentTool?.ActionAt(this, LevelEditorWorld.TransformPositionToWorldCoord(position));
+        }
+
+        public void OnNewMousePosition(Vector3 position)
+        {
+            if (_cursorObject != null)
+            {
+                _cursorObject.transform.position = LevelEditorWorld.TransformPositionToWorldGrid(position);
+            }
+        }
+
+        public void OnRotate(bool clockwise)
+        {
+            if (_cursorObject != null)
+            {
+                RotateObjectOn90(_cursorObject, clockwise);
+                _currentObjectRotation = _cursorObject.transform.rotation;
+            }
+        }
+
+        public void OnAddRoadAt(Vector2Int coord)
+        {
+            var placeObject = _cursorObject.GetComponent<LevelEditorRoad>();
+            _world.PlaceRoad(placeObject, out var isPlaced);
+
+            if (isPlaced)
+                SetCursorObjectFromTool();
+        }
+
+        public void OnRemoveRoadAt(Vector2Int coord)
+        {
+            var roadObject = TryGetObjectUnderCursor();
+            if (roadObject != null)
+            {
+                var roadComponent = roadObject.GetComponent<LevelEditorRoad>();
+                if (roadComponent != null)
+                {
+                    _world.RemoveRoad(roadComponent);
+                    Object.Destroy(roadObject);
+                }
+            }
+        }
+
+        public void OnRotate90At(bool clockwise, Vector2Int coord)
+        {
+            var roadObject = TryGetObjectUnderCursor();
+            if (roadObject != null)
+            {
+                var roadComponent = roadObject.GetComponent<LevelEditorRoad>();
+                if (roadComponent != null)
+                {
+                    _world.RemoveRoad(roadComponent);
+                    
+                    RotateObjectOn90(roadObject, clockwise);
+                    _world.PlaceRoad(roadComponent, out var isPlaced);
+                    if (!isPlaced)
+                    {
+                        RotateObjectOn90(roadObject, !clockwise);
+                        _world.PlaceRoad(roadComponent, out _);
+                    }
+                }
+            }
+        }
+
+        public void OnSelectAt(Vector2Int coord)
+        {
+            
+        }
+
+        [CanBeNull]
+        private GameObject TryGetObjectUnderCursor()
+        {
+            if (Physics.Raycast(_callback.OnGetRayUnderCursor(), out var hit) && hit.collider != null)
+            {
+                var roadObject = hit.collider.gameObject.GetComponent<LevelEditorRoad>();
+                if (roadObject != null)
+                {
+                    return hit.collider.gameObject;
+                }
+            }
+
+            return null;
+        }
+        
         private void SetCursorObjectFromTool()
         {
-            if (_currentTool is RoadTool roadTool)
+            var roadType = _currentTool.GetRoadType();
+            if (roadType != null)
             {
-                _cursorObject = _roadFactory.GetRoadObject(roadTool.GetRoadType());
-                _cursorObject.transform.position += aboveCameraHeightVector;
+                _cursorObject = _roadFactory.GetRoadObject(roadType.Value);
+                _cursorObject.transform.position = _callback.OnGetCameraPosition();
                 _cursorObject.transform.rotation = _currentObjectRotation;
             }
         }
@@ -62,85 +151,20 @@ namespace Kawaiiju.Traffic.LevelEditor
                 _cursorObject = null;
             }
         }
-
-        public void OnClick(Vector3 position)
+        
+        private static void RotateObjectOn90(GameObject gameObject, bool clockwise)
         {
-            if (_mouseChecker.IsOverGUI(position))
-            {
-                return;
-            }
+            var oldRotation = gameObject.transform.rotation.eulerAngles.y;
+            var modifier = clockwise ? 90.0f : -90.0f;
 
-            ProcessClick(position);
+            var newRotation = Quaternion.Euler(0.0f, oldRotation + modifier, 0.0f);
+            gameObject.transform.rotation = newRotation;
         }
 
-        private void ProcessClick(Vector3 position)
+        public interface ICallback
         {
-            switch (_currentTool)
-            {
-                case RoadTool:
-                    RoadPlaceClick(position);
-                    break;
-                case ModifyTool:
-                    ModifyClick(position);
-                    break;
-                case SelectTool:
-                    SelectClick(position);
-                    break;
-            }
-        }
-
-        private void RoadPlaceClick(Vector3 position)
-        {
-            var placeObject = _cursorObject.GetComponent<PlaceObject>();
-            if (!placeObject.isOverlapped)
-            {
-                placeObject.SetPlaced();
-                _world.RegisterRoadConnections(placeObject.GetRoadConnections());
-                SetCursorObjectFromTool();
-            }
-        }
-
-        private void ModifyClick(Vector3 position)
-        {
-        }
-
-        private void SelectClick(Vector3 position)
-        {
-        }
-
-        public void OnNewMousePosition(Vector3 position)
-        {
-            if (_mouseChecker.IsOverGUI(position))
-            {
-                return;
-            }
-
-            if (_cursorObject != null)
-            {
-                _cursorObject.transform.position = LevelEditorWorld.TransformPositionToWorldGrid(_camera.ScreenToWorldPoint(position));
-            }
-        }
-
-        public void OnRotate(bool clockwise)
-        {
-            if (_cursorObject != null)
-            {
-                var oldRotation = _cursorObject.transform.rotation.eulerAngles.y;
-                var modifier = clockwise ? 90.0f : -90.0f;
-
-                _currentObjectRotation = Quaternion.Euler(0.0f, oldRotation + modifier, 0.0f);
-                _cursorObject.transform.rotation = _currentObjectRotation;
-            }
-        }
-
-        public void OnPressedMove(Vector3 oldPosition, Vector3 newPosition)
-        {
-            _camera.transform.position += _camera.ScreenToWorldPoint(oldPosition) - _camera.ScreenToWorldPoint(newPosition);
-        }
-
-        public interface IMousePositionChecker
-        {
-            public bool IsOverGUI(Vector3 position);
+            public Vector3 OnGetCameraPosition();
+            public Ray OnGetRayUnderCursor();
         }
     }
 }

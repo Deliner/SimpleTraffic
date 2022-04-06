@@ -86,10 +86,6 @@ public class LevelEditorInputHandler
             {
                 _callback.OnClick(clickEvent.GetPosition());
             }
-            else
-            {
-                Debug.Log(clickEvent);
-            }
         }
 
         Reset();

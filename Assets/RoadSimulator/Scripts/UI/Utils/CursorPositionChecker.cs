@@ -1,9 +1,8 @@
-﻿using Kawaiiju.Traffic.LevelEditor;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Common
 {
-    public class CursorPositionChecker : LevelEditorWorldHolder.IMousePositionChecker
+    public class CursorPositionChecker
     {
         private readonly Transform _uiTransform;
 

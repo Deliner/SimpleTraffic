@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Kawaiiju.Traffic.LevelEditor;
+using RoadSimulator.Scripts.Game.LevelEditor;
 using RoadSimulator.Scripts.UI.Adapter;
 using UnityEngine;
 
@@ -13,9 +13,9 @@ namespace RoadSimulator.Scripts.UI.View
         private ToolListAdapter _toolListAdapter;
         private ICallback _callback;
 
-        private List<Tool> _toolList;
+        private List<ITool> _toolList;
 
-        public void Init(ICallback callback, List<Tool> toolList)
+        public void Init(ICallback callback, List<ITool> toolList)
         {
             _callback = callback;
             _toolList = toolList;
@@ -27,7 +27,7 @@ namespace RoadSimulator.Scripts.UI.View
 
         public interface ICallback
         {
-            public void OnNewToolSelected(Tool tool);
+            public void OnNewToolSelected(ITool tool);
             public void OnAllToolsUnselected();
         }
 

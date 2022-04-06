@@ -48,11 +48,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72be51bf4fd441e49adfe16bbfcd451a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MeshRenderers:
+  meshRenderers:
   - {fileID: 23335233856939392}
-  Overlapped: {fileID: 2100000, guid: c006f746af22fa7428983f9c07b08dc2, type: 2}
-  Normal: {fileID: 2100000, guid: bfb373dc5f0e6df47a05169df70deb27, type: 2}
-  Transforms:
+  overlapped: {fileID: 2100000, guid: c006f746af22fa7428983f9c07b08dc2, type: 2}
+  normal: {fileID: 2100000, guid: bfb373dc5f0e6df47a05169df70deb27, type: 2}
+  transforms:
   - {fileID: 5429645183633170118}
   - {fileID: 6600532027364332304}
 --- !u!54 &3599571465133298651

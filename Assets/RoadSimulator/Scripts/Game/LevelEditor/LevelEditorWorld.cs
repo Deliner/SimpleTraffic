@@ -1,10 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
-namespace Kawaiiju.Traffic.LevelEditor
+namespace RoadSimulator.Scripts.Game.LevelEditor
 {
     public class LevelEditorWorld
     {
@@ -12,11 +11,33 @@ namespace Kawaiiju.Traffic.LevelEditor
 
         private readonly HashSet<Vector2Int> _pendingConnections = new();
         private readonly HashSet<Vector2Int> _closedConnections = new();
+        private readonly HashSet<LevelEditorRoad> _placeObjects = new();
 
 
         public bool LevelIsOk() => _pendingConnections.Count == 0 && _closedConnections.Count > 0;
 
-        public void RegisterRoadConnections(IEnumerator connections)
+        public void PlaceRoad(LevelEditorRoad road, out bool isPlaced)
+        {
+            if (road.isOverlapped)
+            {
+                isPlaced = false;
+                return;
+            }
+
+            RegisterRoadConnections(road.GetRoadConnections());
+            _placeObjects.Add(road);
+            road.SetPlaced();
+
+            isPlaced = true;
+        }
+
+        public void RemoveRoad(LevelEditorRoad road)
+        {
+            _placeObjects.Remove(road);
+            RemoveRoadConnections(road.GetRoadConnections());
+        }
+
+        private void RegisterRoadConnections(IEnumerator connections)
         {
             while (connections.MoveNext())
             {
@@ -28,16 +49,16 @@ namespace Kawaiiju.Traffic.LevelEditor
             }
         }
 
-        public void RemoveRoadConnections(IEnumerator connections)
+        private void RemoveRoadConnections(IEnumerator connections)
         {
-            do
+            while (connections.MoveNext())
             {
                 var transform = connections.Current as Transform;
                 if (transform != null)
                 {
                     RemoveConnection(transform);
                 }
-            } while (connections.MoveNext());
+            }
         }
 
         private void RegisterConnection(Transform transform)
@@ -69,13 +90,6 @@ namespace Kawaiiju.Traffic.LevelEditor
             }
         }
 
-        private static Vector2Int GetCoordinatesFromTransform(Transform transform)
-        {
-            var position = transform.TransformPoint(Vector3.zero);
-            Debug.Log(position);
-            var coords = new Vector2Int(GetIntCoordFromFloat(position.x), GetIntCoordFromFloat(position.z));
-            return coords;
-        }
 
         public static Vector3 TransformPositionToWorldGrid(Vector3 position)
         {
@@ -84,6 +98,18 @@ namespace Kawaiiju.Traffic.LevelEditor
             return new Vector3(x * WorldGridStep, 0, z * WorldGridStep);
         }
 
+        public static Vector2Int TransformPositionToWorldCoord(Vector3 position)
+        {
+            var coords = new Vector2Int(GetIntCoordFromFloat(position.x), GetIntCoordFromFloat(position.z));
+            return coords;
+        }
+
         private static int GetIntCoordFromFloat(float coord) => (int)Math.Round(coord / WorldGridStep);
+
+        private static Vector2Int GetCoordinatesFromTransform(Transform transform)
+        {
+            var position = transform.TransformPoint(Vector3.zero);
+            return TransformPositionToWorldCoord(position);
+        }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Kawaiiju.Traffic.LevelEditor;
+using RoadSimulator.Scripts.Game.LevelEditor;
 using RoadSimulator.Scripts.UI.View;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -61,7 +61,7 @@ namespace RoadSimulator.Scripts.UI.Adapter
             }
         }
 
-        private void InitializeItemView(GameObject viewGameObject, Tool tool, int index)
+        private void InitializeItemView(GameObject viewGameObject, ITool tool, int index)
         {
             var view = new ToolViewHolder(viewGameObject.transform, index, this);
             view.Init(tool);
@@ -88,7 +88,7 @@ namespace RoadSimulator.Scripts.UI.Adapter
                 _index = index;
             }
 
-            public void Init(Tool tool)
+            public void Init(ITool tool)
             {
                 _toolView.Init(this, tool.GetToolName());
             }
@@ -113,9 +113,9 @@ namespace RoadSimulator.Scripts.UI.Adapter
         {
             public readonly RectTransform ListTransform;
             public readonly GameObject ToolObject;
-            public readonly List<Tool> ToolList;
+            public readonly List<ITool> ToolList;
 
-            public Data(RectTransform listTransform, GameObject toolObject, List<Tool> toolList)
+            public Data(RectTransform listTransform, GameObject toolObject, List<ITool> toolList)
             {
                 ListTransform = listTransform;
                 ToolObject = toolObject;
