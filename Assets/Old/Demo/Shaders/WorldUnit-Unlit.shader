@@ -1,5 +1,6 @@
 ﻿Shader "Dev/WorldUnit-Unlit"
 {
+	/*
 	Properties
 	{
 		_MainTex ("Texture", 2D) = "white" {}
@@ -75,4 +76,6 @@
 			ENDCG
 		}
 	}
+	*/
 }
+

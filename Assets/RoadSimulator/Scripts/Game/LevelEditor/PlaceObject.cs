@@ -12,6 +12,8 @@ namespace Kawaiiju.Traffic.LevelEditor
         [SerializeField] private Material Overlapped;
         [SerializeField] private Material Normal;
 
+        [SerializeField] private Transform[] Transforms;
+
         public bool isOverlapped { get; private set; }
 
         private bool _isPlaced;
@@ -22,6 +24,11 @@ namespace Kawaiiju.Traffic.LevelEditor
         {
             _isPlaced = true;
             ApplyMaterial(Normal);
+        }
+
+        public IEnumerator GetRoadConnections()
+        {
+            return Transforms.GetEnumerator();
         }
 
         private void OnTriggerEnter(Collider other)

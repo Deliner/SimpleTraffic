@@ -1,5 +1,6 @@
 ﻿Shader "Unlit/Transparent Color"
 {
+	/*
 	Properties
 	{
 		_Color ("Color", Color) = (1,1,1,1)
@@ -61,4 +62,5 @@
 			ENDCG
 		}
 	}
+	*/
 }

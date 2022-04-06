@@ -21,7 +21,7 @@ public class LevelEditorScreenManager : BaseScreenManager, ToolListView.ICallbac
     private void Start()
     {
         var roadFactory = new RoadFactory(resourcesHolder.GetResources());
-        
+
         _cursorPositionChecker = new CursorPositionChecker(safeArea.transform);
         _levelEditorWorldHolder = new LevelEditorWorldHolder(camera, _cursorPositionChecker, roadFactory);
         _inputHandler = new LevelEditorInputHandler(_levelEditorWorldHolder);
@@ -46,7 +46,10 @@ public class LevelEditorScreenManager : BaseScreenManager, ToolListView.ICallbac
 
     public void OnRunButtonPressed()
     {
-        SceneManager.LoadScene("GameScreen");
+        if (_levelEditorWorldHolder.ReadyToSimulate())
+        {
+            SceneManager.LoadScene("GameScreen");
+        }
     }
 
     public void OnNewToolSelected(Tool tool)

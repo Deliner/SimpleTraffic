@@ -13,6 +13,8 @@ namespace Kawaiiju.Traffic.LevelEditor
         private readonly RoadFactory _roadFactory;
         private readonly Camera _camera;
 
+        private readonly LevelEditorWorld _world = new();
+
         private Quaternion _currentObjectRotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
         private GameObject _cursorObject;
 
@@ -39,6 +41,8 @@ namespace Kawaiiju.Traffic.LevelEditor
             _currentTool = DefaultTool;
             DestroyCursorObject();
         }
+        
+        public bool ReadyToSimulate() => _world.LevelIsOk();
 
         private void SetCursorObjectFromTool()
         {
@@ -91,6 +95,7 @@ namespace Kawaiiju.Traffic.LevelEditor
             if (!placeObject.isOverlapped)
             {
                 placeObject.SetPlaced();
+                _world.RegisterRoadConnections(placeObject.GetRoadConnections());
                 SetCursorObjectFromTool();
             }
         }
@@ -122,7 +127,7 @@ namespace Kawaiiju.Traffic.LevelEditor
             {
                 var oldRotation = _cursorObject.transform.rotation.eulerAngles.y;
                 var modifier = clockwise ? 90.0f : -90.0f;
-                
+
                 _currentObjectRotation = Quaternion.Euler(0.0f, oldRotation + modifier, 0.0f);
                 _cursorObject.transform.rotation = _currentObjectRotation;
             }
