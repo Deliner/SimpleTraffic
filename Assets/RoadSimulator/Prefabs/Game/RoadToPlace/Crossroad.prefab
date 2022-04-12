@@ -61,6 +61,7 @@ MonoBehaviour:
   - {fileID: 1732696331749470288}
   - {fileID: 3765038772862664229}
   - {fileID: 5008845276057477753}
+  type: 2
 --- !u!54 &8067983251042337825
 Rigidbody:
   m_ObjectHideFlags: 0

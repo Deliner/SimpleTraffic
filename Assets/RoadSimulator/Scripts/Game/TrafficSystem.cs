@@ -42,34 +42,42 @@ namespace Kawaiiju.Traffic
         private int m_TrainSpawnAttempts;
         private int m_PedestrianSpawnAttempts;
 
+        private bool inited = false;
+
         private void Start()
         {
+        }
+
+        public void Init()
+        {
+            var k = kek();
+            StartCoroutine(k);
+        }
+        
+        private IEnumerator kek()
+        {
+            yield return new WaitForSeconds(1);
             var roadsFound = FindObjectsOfType<Road>();
             foreach (var r in roadsFound)
                 m_Roads.Add(r);
-            var tracksFound = FindObjectsOfType<Track>();
-            foreach (var t in tracksFound)
-                m_Tracks.Add(t);
 
-            if (spawnOnStart)
-            {
-                for (var i = 0; i < maxRoadVehicles; i++)
-                    SpawnRoadVehicle(true);
-                for (var i = 0; i < maxTrains; i++)
-                    SpawnTrain(true);
-                for (var i = 0; i < maxPedestrians; i++)
-                    SpawnPedestrian(true);
-            }
+            for (var i = 0; i < maxRoadVehicles; i++)
+                SpawnRoadVehicle(true);
+
+            inited = true;
         }
 
         private void Update()
         {
-            if (Input.GetKeyUp(KeyCode.Backspace))
-                SpawnPedestrian(true);
-            if (Input.GetKeyUp(KeyCode.Return))
-                SpawnRoadVehicle(true);
-            if (Input.GetKeyUp(KeyCode.RightShift))
-                SpawnTrain(true);
+            if (inited)
+            {
+                // if (Input.GetKeyUp(KeyCode.Backspace))
+                //     SpawnPedestrian(true);
+                if (Input.GetKeyUp(KeyCode.Return))
+                    SpawnRoadVehicle(true);
+                // if (Input.GetKeyUp(KeyCode.RightShift))
+                //     SpawnTrain(true);  
+            }
         }
 
         private void SpawnRoadVehicle(bool reset)

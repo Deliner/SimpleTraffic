@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace RoadSimulator.Scripts.Game.LevelEditor
@@ -11,8 +12,13 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
 
         private readonly HashSet<Vector2Int> _pendingConnections = new();
         private readonly HashSet<Vector2Int> _closedConnections = new();
-        private readonly HashSet<LevelEditorRoad> _placeObjects = new();
+        private readonly Hashtable _placeObjects = new();
 
+        private static LevelEditorWorld _instance;
+
+        private LevelEditorWorld()
+        {
+        }
 
         public bool LevelIsOk() => _pendingConnections.Count == 0 && _closedConnections.Count > 0;
 
@@ -25,9 +31,9 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
             }
 
             RegisterRoadConnections(road.GetRoadConnections());
-            _placeObjects.Add(road);
+            SaveRoad(road);
+            
             road.SetPlaced();
-
             isPlaced = true;
         }
 
@@ -35,6 +41,23 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
         {
             _placeObjects.Remove(road);
             RemoveRoadConnections(road.GetRoadConnections());
+        }
+
+        public HashSet<LevelEditorRoad.Data> GetRoadDataSet()
+        {
+            var roadDataSet = new HashSet<LevelEditorRoad.Data>();
+            
+            foreach (var o in _placeObjects.Values)
+            {
+                roadDataSet.Add(o is LevelEditorRoad.Data data ? data : default);
+            }
+
+            return roadDataSet;
+        }
+
+        private void SaveRoad(LevelEditorRoad road)
+        {
+            _placeObjects.Add(road, road.GetData());
         }
 
         private void RegisterRoadConnections(IEnumerator connections)
@@ -104,12 +127,18 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
             return coords;
         }
 
-        private static int GetIntCoordFromFloat(float coord) => (int)Math.Round(coord / WorldGridStep);
+        private static int GetIntCoordFromFloat(float coord) => (int) Math.Round(coord / WorldGridStep);
 
         private static Vector2Int GetCoordinatesFromTransform(Transform transform)
         {
             var position = transform.TransformPoint(Vector3.zero);
             return TransformPositionToWorldCoord(position);
+        }
+
+        public static LevelEditorWorld GetInstance()
+        {
+            _instance ??= new LevelEditorWorld();
+            return _instance;
         }
     }
 }

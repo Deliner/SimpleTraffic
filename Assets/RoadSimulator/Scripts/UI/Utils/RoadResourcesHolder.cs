@@ -1,4 +1,6 @@
 using System;
+using RoadSimulator.Scripts.Game.Base;
+using RoadSimulator.Scripts.Game.LevelEditor;
 using UnityEngine;
 
 namespace Common
@@ -12,12 +14,9 @@ namespace Common
         [SerializeField] private GameObject corner;
         [SerializeField] private GameObject road;
 
-        private static RoadObjectFactory.Resources? _resources;
-
         public RoadObjectFactory.Resources GetResources()
         {
-            _resources ??= new RoadObjectFactory.Resources(road, corner, crossroad, halfRoad, crossroadT, dualRoad);
-            return _resources.Value;
+            return new RoadObjectFactory.Resources(road, corner, crossroad, halfRoad, crossroadT, dualRoad);
         }
     }
 }

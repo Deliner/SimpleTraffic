@@ -1,6 +1,7 @@
 using System;
 using Common;
 using RoadSimulator.Scripts.Game.LevelEditor;
+using RoadSimulator.Scripts.Game.Simulation;
 using RoadSimulator.Scripts.UI.View;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -47,7 +48,8 @@ namespace RoadSimulator.Scripts.UI.ScreenManager
         {
             if (_levelEditorWorldHolder.ReadyToSimulate())
             {
-                SceneManager.LoadScene("GameScreen");
+                SimulationWorld.GetInstance().SetRoadData(_levelEditorWorldHolder.GetRoadDataSet());
+                SceneManager.LoadScene("SimulationScreen");
             }
         }
 

@@ -26,7 +26,8 @@ namespace Kawaiiju.Traffic
 			if(TrafficSystem.instance.drawGizmos)
 			{
 				Gizmos.color = Color.white;
-				Gizmos.DrawSphere(transform.position - new Vector3(0, transform.localScale.y * 0.5f, 0), 0.05f);
+				var objectTransform = transform;
+				Gizmos.DrawSphere(objectTransform.position - new Vector3(0, objectTransform.localScale.y * 0.5f, 0), 0.05f);
 			}
 		}
 	}

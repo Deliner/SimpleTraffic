@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using RoadSimulator.Scripts.Game.Base;
+using UnityEngine;
 
 namespace RoadSimulator.Scripts.Game.LevelEditor
 {

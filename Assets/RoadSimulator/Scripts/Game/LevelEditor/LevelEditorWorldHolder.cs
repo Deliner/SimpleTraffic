@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using JetBrains.Annotations;
+using RoadSimulator.Scripts.Game.Base;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -10,7 +12,7 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
         private static readonly IRoadBuilderTool DefaultTool = new SelectTool();
         private IRoadBuilderTool _currentTool = DefaultTool;
 
-        private readonly RoadObjectFactory _roadFactory;
+        private readonly RoadObjectFactory _roadObjectFactory;
 
         private readonly LevelEditorWorld _world;
 
@@ -21,8 +23,8 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
 
         public LevelEditorWorldHolder(ICallback callback, RoadObjectFactory.Resources resources)
         {
-            _roadFactory = new RoadObjectFactory(resources);
-            _world = new LevelEditorWorld();
+            _roadObjectFactory = new RoadObjectFactory(resources);
+            _world = LevelEditorWorld.GetInstance();
             _callback = callback;
         }
 
@@ -45,6 +47,8 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
         }
 
         public bool ReadyToSimulate() => _world.LevelIsOk();
+
+        public HashSet<LevelEditorRoad.Data> GetRoadDataSet() => _world.GetRoadDataSet();
 
         public void OnClick(Vector3 position)
         {
@@ -137,7 +141,7 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
             var roadType = _currentTool.GetRoadType();
             if (roadType != null)
             {
-                _cursorObject = _roadFactory.GetRoadObject(roadType.Value);
+                _cursorObject = _roadObjectFactory.GetRoadObject(roadType.Value);
                 _cursorObject.transform.position = _callback.OnGetCameraPosition();
                 _cursorObject.transform.rotation = _currentObjectRotation;
             }

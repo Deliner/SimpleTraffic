@@ -1,4 +1,5 @@
 using System.Collections;
+using RoadSimulator.Scripts.Game.Base;
 using UnityEngine;
 
 namespace RoadSimulator.Scripts.Game.LevelEditor
@@ -12,12 +13,14 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
 
         [SerializeField] private Transform[] transforms;
 
+        [SerializeField] private RoadObjectFactory.Type type;
+
         public bool isOverlapped { get; private set; }
 
         private bool _isPlaced;
 
         private readonly Hashtable _enteredCollider = new();
-
+        
         public void SetPlaced()
         {
             _isPlaced = true;
@@ -27,6 +30,12 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
         public IEnumerator GetRoadConnections()
         {
             return transforms.GetEnumerator();
+        }
+
+        public Data GetData()
+        {
+            var objectTransform = transform;
+            return new Data(type, objectTransform.position, objectTransform.rotation);
         }
 
         private void OnTriggerEnter(Collider other)
@@ -78,6 +87,20 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
             foreach (var meshRenderer in meshRenderers)
             {
                 meshRenderer.material = material;
+            }
+        }
+
+        public struct Data
+        {
+            public readonly RoadObjectFactory.Type Type;
+            public readonly Quaternion Rotation;
+            public readonly Vector3 Position;
+
+            public Data(RoadObjectFactory.Type type, Vector3 position, Quaternion rotation)
+            {
+                Position = position;
+                Rotation = rotation;
+                Type = type;
             }
         }
     }

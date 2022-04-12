@@ -55,6 +55,7 @@ MonoBehaviour:
   transforms:
   - {fileID: 5429645183633170118}
   - {fileID: 6600532027364332304}
+  type: 5
 --- !u!54 &3599571465133298651
 Rigidbody:
   m_ObjectHideFlags: 0
