@@ -46,17 +46,6 @@ namespace Kawaiiju.Traffic
 
         private void Start()
         {
-        }
-
-        public void Init()
-        {
-            var k = kek();
-            StartCoroutine(k);
-        }
-        
-        private IEnumerator kek()
-        {
-            yield return new WaitForSeconds(1);
             var roadsFound = FindObjectsOfType<Road>();
             foreach (var r in roadsFound)
                 m_Roads.Add(r);
@@ -65,6 +54,18 @@ namespace Kawaiiju.Traffic
                 SpawnRoadVehicle(true);
 
             inited = true;
+        }
+
+        public void Init()
+        {
+            // var k = kek();
+            // StartCoroutine(k);
+        }
+        
+        private IEnumerator kek()
+        {
+            yield return new WaitForSeconds(1);
+            
         }
 
         private void Update()

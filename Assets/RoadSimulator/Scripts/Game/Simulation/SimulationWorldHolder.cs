@@ -2,6 +2,7 @@
 using Kawaiiju.Traffic;
 using RoadSimulator.Scripts.Game.Base;
 using RoadSimulator.Scripts.Game.LevelEditor;
+using TMPro;
 using Unity.AI.Navigation;
 using UnityEngine;
 
@@ -14,6 +15,8 @@ namespace RoadSimulator.Scripts.Game.Simulation
         private readonly Transform _roadParent;
         private readonly NavMeshSurface _navMeshSurface;
         private readonly TrafficSystem _trafficSystem;
+
+        private bool _first = true;
 
         public SimulationWorldHolder(Transform roadParent, RoadObjectFactory.Resources resources, NavMeshSurface navMeshSurface, TrafficSystem trafficSystem)
         {
@@ -48,6 +51,12 @@ namespace RoadSimulator.Scripts.Game.Simulation
             gameObject.transform.position = data.Position;
             gameObject.transform.rotation = data.Rotation;
             gameObject.transform.SetParent(_roadParent);
+
+            if (_first)
+            {
+                _navMeshSurface.transform.position = data.Position;
+                _first = false;
+            }
         }
     }
 }

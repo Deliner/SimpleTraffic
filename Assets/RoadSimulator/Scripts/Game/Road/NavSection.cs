@@ -18,8 +18,12 @@ namespace Kawaiiju.Traffic
 		
 		public virtual void Start()
 		{
-			foreach(var connection in connections)
-				connection.navSection = this;
+			// foreach(var connection in connections)
+			// 	connection.navSection = this;
+		}
+
+		private void Update()
+		{
 		}
 
 		public bool TryGetVehicleSpawn(out VehicleSpawn spawn)
