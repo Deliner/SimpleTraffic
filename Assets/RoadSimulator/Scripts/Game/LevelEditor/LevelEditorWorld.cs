@@ -22,6 +22,13 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
 
         public bool LevelIsOk() => _pendingConnections.Count == 0 && _closedConnections.Count > 0;
 
+        public void Reset()
+        {
+            _pendingConnections.Clear();
+            _closedConnections.Clear();
+            _placeObjects.Clear();
+        }
+
         public void PlaceRoad(LevelEditorRoad road, out bool isPlaced)
         {
             if (road.isOverlapped)
@@ -32,7 +39,7 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
 
             RegisterRoadConnections(road.GetRoadConnections());
             SaveRoad(road);
-            
+
             road.SetPlaced();
             isPlaced = true;
         }
@@ -46,7 +53,7 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
         public HashSet<LevelEditorRoad.Data> GetRoadDataSet()
         {
             var roadDataSet = new HashSet<LevelEditorRoad.Data>();
-            
+
             foreach (var o in _placeObjects.Values)
             {
                 roadDataSet.Add(o is LevelEditorRoad.Data data ? data : default);

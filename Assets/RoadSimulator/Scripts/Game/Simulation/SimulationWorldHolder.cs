@@ -38,23 +38,37 @@ namespace RoadSimulator.Scripts.Game.Simulation
 
         private void PlaceRoads(IEnumerator<LevelEditorRoad.Data> enumerator)
         {
+
+            Vector3 shift = Vector3.zero;
+            int counter = 0;
+            while (enumerator.MoveNext())
+            {
+                shift += enumerator.Current.Position;
+                counter++;
+            }
+
+            shift /= counter;
+            
+            enumerator.Reset();
             while (enumerator.MoveNext())
             {
                 var data = enumerator.Current;
-                CreateRoad(data);
+                CreateRoad(data, shift);
             }
         }
 
-        private void CreateRoad(LevelEditorRoad.Data data)
+        private void CreateRoad(LevelEditorRoad.Data data, Vector3 shift)
         {
             var gameObject = _factory.GetRoadObject(data.Type);
-            gameObject.transform.position = data.Position;
+            var shiftedPosition = data.Position - shift;
+            
+            gameObject.transform.position = shiftedPosition;
             gameObject.transform.rotation = data.Rotation;
             gameObject.transform.SetParent(_roadParent);
 
             if (_first)
             {
-                _navMeshSurface.transform.position = data.Position;
+                _navMeshSurface.transform.position = shiftedPosition;
                 _first = false;
             }
         }

@@ -25,6 +25,7 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
         {
             _roadObjectFactory = new RoadObjectFactory(resources);
             _world = LevelEditorWorld.GetInstance();
+            _world.Reset();
             _callback = callback;
         }
 
