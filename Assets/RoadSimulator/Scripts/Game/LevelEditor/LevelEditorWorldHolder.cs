@@ -108,6 +108,7 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
                     
                     RotateObjectOn90(roadObject, clockwise);
                     _world.PlaceRoad(roadComponent, out var isPlaced);
+                    
                     if (!isPlaced)
                     {
                         RotateObjectOn90(roadObject, !clockwise);

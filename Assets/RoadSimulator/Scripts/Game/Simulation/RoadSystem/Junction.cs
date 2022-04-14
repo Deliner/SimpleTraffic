@@ -6,52 +6,41 @@ namespace RoadSimulator.Scripts.Game.Simulation.RoadSystem
 {
     public class Junction : Road
     {
-        public JunctionTrigger[] triggers;
         public Phase[] phases;
 
         public float phaseInterval = 5;
 
         private int _mCurrentPhase;
         private float _phaseTimer;
-        private bool _phaseEnded;
 
         public void Start()
         {
             if (phases.Length > 0)
-                phases[0].Enable();
-            foreach (var trigger in triggers)
-                trigger.junction = this;
+                phases[0].Apply();
         }
 
         private void Update()
         {
             _phaseTimer += Time.deltaTime;
-            if (!_phaseEnded && _phaseTimer > (phaseInterval * 0.5f))
-                EndPhase();
             if (_phaseTimer > phaseInterval)
                 ChangePhase();
-        }
-
-        private void EndPhase()
-        {
-            _phaseEnded = true;
-            phases[_mCurrentPhase].End();
         }
 
         private void ChangePhase()
         {
             _phaseTimer = 0;
-            _phaseEnded = false;
+            phases[_mCurrentPhase].Undo();
+
+            SwitchPhase();
+            phases[_mCurrentPhase].Apply();
+        }
+
+        private void SwitchPhase()
+        {
             if (_mCurrentPhase < phases.Length - 1)
                 _mCurrentPhase++;
             else
                 _mCurrentPhase = 0;
-            phases[_mCurrentPhase].Enable();
-        }
-
-        public void TryChangePhase()
-        {
-            ChangePhase();
         }
 
         private void OnDrawGizmos()
@@ -86,22 +75,25 @@ namespace RoadSimulator.Scripts.Game.Simulation.RoadSystem
             public WaitZone[] positiveZones;
             public WaitZone[] negativeZones;
 
-            public void Enable()
+            public void Apply()
             {
                 foreach (var zone in positiveZones)
                     zone.canPass = true;
                 foreach (var light in positiveLights)
                     light.SetLight(true);
+
                 foreach (var zone in negativeZones)
                     zone.canPass = false;
                 foreach (var light in negativeLights)
                     light.SetLight(false);
             }
 
-            public void End()
+            public void Undo()
             {
                 foreach (var zone in positiveZones)
                     zone.canPass = false;
+                foreach (var light in positiveLights)
+                    light.SetLight(false);
             }
         }
 
