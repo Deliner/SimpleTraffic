@@ -85,8 +85,8 @@ namespace RoadSimulator.Scripts.Game.Simulation.Agent
         private void SwitchRoad(NavConnection newConnection)
         {
             RegisterVehicle(false);
-            speed = TrafficSystem.GetAgentSpeedFromKph(Mathf.Min(newConnection.navSection.speedLimit, maxSpeed));
-            agent.speed = speed;
+            currentSpeed = TrafficSystem.GetAgentSpeedFromKph(Mathf.Min(newConnection.navSection.speedLimit, maxSpeed));
+            agent.speed = currentSpeed;
 
             _currentNavSection = newConnection.navSection;
             RegisterVehicle(true);

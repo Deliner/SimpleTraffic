@@ -7,26 +7,17 @@ namespace RoadSimulator.Scripts.Game.Simulation.Agent
     [RequireComponent(typeof(NavMeshAgent))]
     public class Agent : MonoBehaviour
     {
+        [SerializeField] protected NavMeshAgent agent;
+
         public int maxSpeed = 120;
 
-        public float speed;
+        public float currentSpeed;
         protected bool isWaiting { get; private set; }
 
         private Transform _destination;
 
         private WaitZone _currentWaitZone;
 
-        private NavMeshAgent _agent;
-
-        protected NavMeshAgent agent
-        {
-            get
-            {
-                if (!_agent)
-                    _agent = GetComponent<NavMeshAgent>();
-                return _agent;
-            }
-        }
 
         public virtual void Update()
         {
@@ -34,7 +25,7 @@ namespace RoadSimulator.Scripts.Game.Simulation.Agent
             {
                 if (CheckStop())
                     agent.velocity = Vector3.zero;
-                
+
                 CheckWaitZone();
             }
         }

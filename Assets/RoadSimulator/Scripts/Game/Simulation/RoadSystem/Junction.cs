@@ -10,7 +10,7 @@ namespace RoadSimulator.Scripts.Game.Simulation.RoadSystem
 
         public float phaseInterval = 5;
 
-        private int _mCurrentPhase;
+        private int _currentPhase;
         private float _phaseTimer;
 
         public void Start()
@@ -29,25 +29,25 @@ namespace RoadSimulator.Scripts.Game.Simulation.RoadSystem
         private void ChangePhase()
         {
             _phaseTimer = 0;
-            phases[_mCurrentPhase].Undo();
+            phases[_currentPhase].Undo();
 
             SwitchPhase();
-            phases[_mCurrentPhase].Apply();
+            phases[_currentPhase].Apply();
         }
 
         private void SwitchPhase()
         {
-            if (_mCurrentPhase < phases.Length - 1)
-                _mCurrentPhase++;
+            if (_currentPhase < phases.Length - 1)
+                _currentPhase++;
             else
-                _mCurrentPhase = 0;
+                _currentPhase = 0;
         }
 
         private void OnDrawGizmos()
         {
             if (TrafficSystem.instance.drawGizmos)
             {
-                var phase = phases[_mCurrentPhase];
+                var phase = phases[_currentPhase];
                 foreach (var zone in phase.positiveZones)
                 {
                     Gizmos.color = zone.canPass ? Color.green : Color.red;

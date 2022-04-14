@@ -151,9 +151,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 002570f00a79f4af1b522632c58aa357, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 1
   maxSpeed: 20
-  speed: 0
+  currentSpeed: 0
+  agent: {fileID: 195682654740579306}
   front: {fileID: 4118226237734090}
 --- !u!1 &1813463833871512
 GameObject:
