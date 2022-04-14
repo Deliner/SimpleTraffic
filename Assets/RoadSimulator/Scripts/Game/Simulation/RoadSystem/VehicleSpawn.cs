@@ -40,13 +40,11 @@ namespace RoadSimulator.Scripts.Game.Simulation.RoadSystem
 
         private void OnTriggerEnter(Collider other)
         {
-            Debug.Log($"Enter {this} {other}");
             _enteredColliders.Add(other);
         }
 
         private void OnTriggerExit(Collider other)
         {
-            Debug.Log($"Exit {this} {other}");
             _enteredColliders.Remove(other);
         }
     }

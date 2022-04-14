@@ -75,6 +75,10 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
 
         public void OnAddRoadAt(Vector2Int coord)
         {
+            var pos = _cursorObject.transform.position; //TODO remove this, fixes bug with dual place
+            pos.y = 0;
+            _cursorObject.transform.position = pos;
+            
             var placeObject = _cursorObject.GetComponent<LevelEditorRoad>();
             _world.PlaceRoad(placeObject, out var isPlaced);
 
