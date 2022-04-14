@@ -75,10 +75,8 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
 
         public void OnAddRoadAt(Vector2Int coord)
         {
-            var pos = _cursorObject.transform.position; //TODO remove this, fixes bug with dual place
-            pos.y = 0;
-            _cursorObject.transform.position = pos;
-            
+            if (_cursorObject.transform.position.y > 0) return; //TODO improve this, fixes bug with dual place
+
             var placeObject = _cursorObject.GetComponent<LevelEditorRoad>();
             _world.PlaceRoad(placeObject, out var isPlaced);
 
@@ -89,42 +87,33 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
         public void OnRemoveRoadAt(Vector2Int coord)
         {
             var roadObject = TryGetObjectUnderCursor();
-            if (roadObject != null)
+            if (IsRoadObject(roadObject, out var roadComponent))
             {
-                var roadComponent = roadObject.GetComponent<LevelEditorRoad>();
-                if (roadComponent != null)
-                {
-                    _world.RemoveRoad(roadComponent);
-                    Object.Destroy(roadObject);
-                }
+                _world.RemoveRoad(roadComponent);
+                Object.Destroy(roadObject);
             }
         }
 
         public void OnRotate90At(bool clockwise, Vector2Int coord)
         {
             var roadObject = TryGetObjectUnderCursor();
-            if (roadObject != null)
+            if (IsRoadObject(roadObject, out var roadComponent))
             {
-                var roadComponent = roadObject.GetComponent<LevelEditorRoad>();
-                if (roadComponent != null)
+                _world.RemoveRoad(roadComponent);
+
+                RotateObjectOn90(roadObject, clockwise);
+                _world.PlaceRoad(roadComponent, out var isPlaced);
+
+                if (!isPlaced)
                 {
-                    _world.RemoveRoad(roadComponent);
-                    
-                    RotateObjectOn90(roadObject, clockwise);
-                    _world.PlaceRoad(roadComponent, out var isPlaced);
-                    
-                    if (!isPlaced)
-                    {
-                        RotateObjectOn90(roadObject, !clockwise);
-                        _world.PlaceRoad(roadComponent, out _);
-                    }
+                    RotateObjectOn90(roadObject, !clockwise);
+                    _world.PlaceRoad(roadComponent, out _);
                 }
             }
         }
 
         public void OnSelectAt(Vector2Int coord)
         {
-            
         }
 
         [CanBeNull]
@@ -141,7 +130,7 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
 
             return null;
         }
-        
+
         private void SetCursorObjectFromTool()
         {
             var roadType = _currentTool.GetRoadType();
@@ -161,7 +150,15 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
                 _cursorObject = null;
             }
         }
-        
+
+        private static bool IsRoadObject([CanBeNull] GameObject gameObject, [CanBeNull] out LevelEditorRoad roadComponent)
+        {
+            roadComponent = null;
+            if (gameObject == null) return false;
+            roadComponent = gameObject.GetComponent<LevelEditorRoad>();
+            return roadComponent != null;
+        }
+
         private static void RotateObjectOn90(GameObject gameObject, bool clockwise)
         {
             var oldRotation = gameObject.transform.rotation.eulerAngles.y;

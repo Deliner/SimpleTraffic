@@ -36,6 +36,7 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
                 isPlaced = false;
                 return;
             }
+
             Debug.Log($"{road.GetData().Type} placed at {road.GetData().Position}");
             RegisterRoadConnections(road.GetRoadConnections());
             SaveRoad(road);
