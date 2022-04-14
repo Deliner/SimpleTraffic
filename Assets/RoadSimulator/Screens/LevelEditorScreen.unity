@@ -563,10 +563,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   crossroadT: {fileID: 1858811064698484, guid: 7c4b9c501c0affd488d935224e72b537, type: 3}
   crossroad: {fileID: 1044478496400794, guid: 980505115ad4c584583af52be363714b, type: 3}
+  generator: {fileID: 1138728264224080, guid: ea2dd4496e5a46e46ab8dd260ebbfdb4, type: 3}
   halfRoad: {fileID: 1698348551958270, guid: 45a2e0e06060b9c42a04f09c34897a50, type: 3}
   dualRoad: {fileID: 1138728264224080, guid: 6d83e94a99f859a42a8544cdb075c40b, type: 3}
+  deletor: {fileID: 1138728264224080, guid: a4352ecb3fba52941bdd3b9d15b2a0f2, type: 3}
   corner: {fileID: 1698348551958270, guid: 069c8f589fbb9a446b2f4ad49b2e6da4, type: 3}
   road: {fileID: 1168539446821712, guid: 9c9db6fce7dc6fd41b0354fb8a87bb6b, type: 3}
+  plug: {fileID: 1138728264224080, guid: e23226afb98b0ff49878a16cd71a55c9, type: 3}
 --- !u!1 &599826986
 GameObject:
   m_ObjectHideFlags: 0

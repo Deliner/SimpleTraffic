@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using JetBrains.Annotations;
+using System.Linq;
 using UnityEngine;
 
 namespace RoadSimulator.Scripts.Game.LevelEditor
@@ -31,12 +31,12 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
 
         public void PlaceRoad(LevelEditorRoad road, out bool isPlaced)
         {
-            if (road.isOverlapped)
+            if (road.isOverlapped || ContainsRoad(road))
             {
                 isPlaced = false;
                 return;
             }
-
+            Debug.Log($"{road} placed");
             RegisterRoadConnections(road.GetRoadConnections());
             SaveRoad(road);
 
@@ -60,6 +60,11 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
             }
 
             return roadDataSet;
+        }
+
+        private bool ContainsRoad(LevelEditorRoad road)
+        {
+            return _placeObjects.Values.Cast<object>().Contains(road.GetData());
         }
 
         private void SaveRoad(LevelEditorRoad road)
@@ -94,7 +99,6 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
         private void RegisterConnection(Transform transform)
         {
             var coords = GetCoordinatesFromTransform(transform);
-            Debug.Log(coords);
             if (_pendingConnections.Contains(coords))
             {
                 _pendingConnections.Remove(coords);
@@ -134,7 +138,7 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
             return coords;
         }
 
-        private static int GetIntCoordFromFloat(float coord) => (int) Math.Round(coord / WorldGridStep);
+        private static int GetIntCoordFromFloat(float coord) => (int)Math.Round(coord / WorldGridStep);
 
         private static Vector2Int GetCoordinatesFromTransform(Transform transform)
         {

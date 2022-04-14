@@ -43,39 +43,57 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
         public void ActionAt(IRoadBuilder builder, Vector2Int coord) => builder.OnAddRoadAt(coord);
     }
 
-    public class Road : BaseRoadTool
+    public class RoadTool : BaseRoadTool
     {
         public override RoadObjectFactory.Type? GetRoadType() =>RoadObjectFactory.Type.Road;
         public override string GetToolName() => "Road";
     }
+    
+    public class PlugTool : BaseRoadTool
+    {
+        public override RoadObjectFactory.Type? GetRoadType() =>RoadObjectFactory.Type.Plug;
+        public override string GetToolName() => "Plug";
+    }
 
-    public class Corner : BaseRoadTool
+    public class CornerTool : BaseRoadTool
     {
         public override RoadObjectFactory.Type? GetRoadType() =>  RoadObjectFactory.Type.Corner;
         public override string GetToolName() => "Corner";
     }
 
-    public class Crossroad : BaseRoadTool
+    public class CrossroadTool : BaseRoadTool
     {
         public override RoadObjectFactory.Type? GetRoadType() => RoadObjectFactory.Type.Crossroad;
         public override string GetToolName() => "Crossroad";
     }
 
-    public class CrossroadT : BaseRoadTool
+    public class TcrossroadTool : BaseRoadTool
     {
         public override RoadObjectFactory.Type? GetRoadType() => RoadObjectFactory.Type.CrossroadT;
         public override string GetToolName() => "CrossroadT";
     }
 
-    public class HalfRoad : BaseRoadTool
+    public class HalfRoadTool : BaseRoadTool
     {
         public override RoadObjectFactory.Type? GetRoadType() => RoadObjectFactory.Type.HalfRoad;
         public override string GetToolName() => "HalfRoad";
     }
 
-    public class DualRoad : BaseRoadTool
+    public class DualRoadTool : BaseRoadTool
     {
         public override RoadObjectFactory.Type? GetRoadType() => RoadObjectFactory.Type.DualRoad;
         public override string GetToolName() => "DualRoad";
+    }
+    
+    public class GeneratorTool : BaseRoadTool
+    {
+        public override RoadObjectFactory.Type? GetRoadType() => RoadObjectFactory.Type.Generator;
+        public override string GetToolName() => "Generator";
+    }
+    
+    public class DeletorTool : BaseRoadTool
+    {
+        public override RoadObjectFactory.Type? GetRoadType() => RoadObjectFactory.Type.Deletor;
+        public override string GetToolName() => "Deletor";
     }
 }

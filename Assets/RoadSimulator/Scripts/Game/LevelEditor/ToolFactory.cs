@@ -27,12 +27,15 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
         {
             return type switch
             {
-                Type.Corner => new Corner(),
-                Type.Road => new Road(),
-                Type.Crossroad => new Crossroad(),
-                Type.CrossroadT => new CrossroadT(),
-                Type.HalfRoad => new HalfRoad(),
-                Type.DualRoad => new DualRoad(),
+                Type.Corner => new CornerTool(),
+                Type.Road => new RoadTool(),
+                Type.Plug => new PlugTool(),
+                Type.Crossroad => new CrossroadTool(),
+                Type.CrossroadT => new TcrossroadTool(),
+                Type.HalfRoad => new HalfRoadTool(),
+                Type.DualRoad => new DualRoadTool(),
+                Type.Deletor => new DeletorTool(),
+                Type.Generator => new GeneratorTool(),
                 Type.Select => new SelectTool(),
                 Type.Rotate90 => new Rotate90Tool(),
                 Type.Remove => new RemoveTool(),
@@ -43,11 +46,14 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
         private enum Type
         {
             Road,
+            Plug,
             Corner,
             Crossroad,
             CrossroadT,
             HalfRoad,
             DualRoad,
+            Generator,
+            Deletor,
             Select,
             Rotate90,
             Remove

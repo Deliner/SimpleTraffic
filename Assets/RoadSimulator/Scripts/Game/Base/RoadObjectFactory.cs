@@ -24,6 +24,9 @@ namespace RoadSimulator.Scripts.Game.Base
                 Type.HalfRoad => _resources.HalfRoad,
                 Type.CrossroadT => _resources.CrossroadT,
                 Type.DualRoad => _resources.DualRoad,
+                Type.Generator => _resources.Generator,
+                Type.Deletor => _resources.Deletor,
+                Type.Plug => _resources.Plug,
                 _ => throw new ArgumentOutOfRangeException(nameof(roadType), roadType, null)
             });
         }
@@ -35,7 +38,10 @@ namespace RoadSimulator.Scripts.Game.Base
             Crossroad,
             HalfRoad,
             CrossroadT,
-            DualRoad
+            DualRoad,
+            Generator,
+            Deletor,
+            Plug
         }
 
         public struct Resources
@@ -46,8 +52,15 @@ namespace RoadSimulator.Scripts.Game.Base
             public readonly GameObject HalfRoad;
             public readonly GameObject CrossroadT;
             public readonly GameObject DualRoad;
+            public readonly GameObject Generator;
+            public readonly GameObject Deletor;
+            public readonly GameObject Plug;
 
-            public Resources(GameObject road, GameObject corner, GameObject crossroad, GameObject halfRoad, GameObject tCrossroad, GameObject dualRoad)
+            public Resources(
+                GameObject road, GameObject corner, GameObject crossroad,
+                GameObject halfRoad, GameObject tCrossroad, GameObject dualRoad,
+                GameObject generator, GameObject deletor, GameObject plug
+            )
             {
                 Road = road;
                 Corner = corner;
@@ -55,6 +68,9 @@ namespace RoadSimulator.Scripts.Game.Base
                 HalfRoad = halfRoad;
                 CrossroadT = tCrossroad;
                 DualRoad = dualRoad;
+                Generator = generator;
+                Deletor = deletor;
+                Plug = plug;
             }
         }
     }

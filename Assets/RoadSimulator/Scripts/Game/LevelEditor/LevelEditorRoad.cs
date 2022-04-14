@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using RoadSimulator.Scripts.Game.Base;
 using UnityEngine;
@@ -20,7 +21,7 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
         private bool _isPlaced;
 
         private readonly Hashtable _enteredCollider = new();
-        
+
         public void SetPlaced()
         {
             _isPlaced = true;
@@ -90,7 +91,7 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
             }
         }
 
-        public struct Data
+        public readonly struct Data
         {
             public readonly RoadObjectFactory.Type Type;
             public readonly Quaternion Rotation;
@@ -101,6 +102,17 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
                 Position = position;
                 Rotation = rotation;
                 Type = type;
+            }
+
+            public override bool Equals(object obj)
+            {
+                if (obj is not Data other) return false;
+                return Type == other.Type && Rotation.Equals(other.Rotation) && Position.Equals(other.Position);
+            }
+
+            public override int GetHashCode()
+            {
+                return HashCode.Combine((int)Type, Rotation, Position);
             }
         }
     }

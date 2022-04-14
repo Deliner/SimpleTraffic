@@ -169,10 +169,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   crossroadT: {fileID: 1858811064698484, guid: 9aff585eab756f34f9b37999daf246e6, type: 3}
   crossroad: {fileID: 1044478496400794, guid: e75feb5e614bca141b03101fbcc7a077, type: 3}
+  generator: {fileID: 1138728264224080, guid: 4743610338b7add49a71245bec8f7d4b, type: 3}
   halfRoad: {fileID: 1698348551958270, guid: 746a211cdd875684e8706325f7f69f19, type: 3}
   dualRoad: {fileID: 1138728264224080, guid: eb35dab93ad69114b85d3b226a434c16, type: 3}
+  deletor: {fileID: 1138728264224080, guid: c617404bb578dfb4e89ff581cb38a849, type: 3}
   corner: {fileID: 1698348551958270, guid: 40fb051ef4060944a8c654f825a4db57, type: 3}
   road: {fileID: 1168539446821712, guid: 46af4e9f4bf0485488fe233a79f9a0eb, type: 3}
+  plug: {fileID: 1138728264224080, guid: 9dac0e71ebb7009428b78fe578832e0a, type: 3}
 --- !u!1 &767560098
 GameObject:
   m_ObjectHideFlags: 0
@@ -679,19 +682,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   drawGizmos: 1
-  pedestrianPrefab: {fileID: 1815671103046582, guid: 13e94d706a97743bca48ccf3d1ac0d6c,
-    type: 3}
   vehiclePrefab: {fileID: 1623311671667096, guid: 1daf70c186c22473a9bfaed829aea442,
     type: 3}
-  trainPrefab: {fileID: 1623311671667096, guid: 70009b9623f3b418ebf52b65ffabc07b,
-    type: 3}
-  trainCarriagePrefab: {fileID: 1623311671667096, guid: e25b77a78554a41a3820602008efe36b,
-    type: 3}
-  pool: {fileID: 883007427}
-  spawnOnStart: 1
+  folder: {fileID: 883007427}
   maxRoadVehicles: 100
-  maxTrains: 5
-  maxPedestrians: 100
 --- !u!1 &1781689598
 GameObject:
   m_ObjectHideFlags: 0
