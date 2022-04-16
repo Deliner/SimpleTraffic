@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 namespace RoadSimulator.Scripts.Game.LevelEditor
 {
-    public static class  ToolFactory
+    public static class ToolFactory
     {
         private static List<ITool> _toolList;
-        
+
         public static List<ITool> GetAllTools()
         {
             _toolList ??= GetToolList();
@@ -16,10 +16,16 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
         private static List<ITool> GetToolList()
         {
             var toolList = new List<ITool>();
-            foreach (var type in (Type[]) Enum.GetValues(typeof(Type)))
+            foreach (var type in (Type[])Enum.GetValues(typeof(Type)))
             {
-                toolList.Add(GetTool(type));
+                if (type is not (Type.Generator or Type.Deletor))
+                {
+                    toolList.Add(GetTool(type));
+                }
             }
+
+            toolList.Remove(new GeneratorTool());
+            toolList.Remove(new DeletorTool());
             return toolList;
         }
 
@@ -45,13 +51,13 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
 
         private enum Type
         {
-            Road,
             Plug,
-            Corner,
-            Crossroad,
-            CrossroadT,
-            HalfRoad,
+            Road,
             DualRoad,
+            HalfRoad,
+            Corner,
+            CrossroadT,
+            Crossroad,
             Generator,
             Deletor,
             Select,

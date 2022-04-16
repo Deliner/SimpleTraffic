@@ -1,5 +1,3 @@
-using System;
-using RoadSimulator.Scripts.Game.Simulation;
 using RoadSimulator.Scripts.Game.Simulation.World;
 using RoadSimulator.Scripts.UI.Common;
 using RoadSimulator.Scripts.UI.Utils;
@@ -12,9 +10,9 @@ namespace RoadSimulator.Scripts.UI.ScreenManager
     public class SimulationScreenManager : BaseScreenManager
     {
         [SerializeField] private RoadResourcesHolder resourcesHolder;
-        [SerializeField] private Transform roadFolder;
         [SerializeField] private NavMeshSurface navMeshSurface;
         [SerializeField] private TrafficSystem trafficSystem;
+        [SerializeField] private Transform roadFolder;
 
         private SimulationWorldHolder _worldHolder;
 

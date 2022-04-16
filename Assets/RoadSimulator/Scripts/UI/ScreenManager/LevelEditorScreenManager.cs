@@ -41,6 +41,11 @@ namespace RoadSimulator.Scripts.UI.ScreenManager
             }
         }
 
+        public override void OnDialogClosed()
+        {
+            _levelEditorWorldHolder.UnlockCursor();
+        }
+
         public void OnCloseButtonPressed()
         {
             OpenPopup<YesNoPopup>("Popups/YesNoPopup", new Action(() => { SceneManager.LoadScene("MainScreen"); }));

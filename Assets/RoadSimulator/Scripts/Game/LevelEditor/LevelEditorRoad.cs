@@ -94,7 +94,7 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
             }
         }
 
-
+    
         public readonly struct Data
         {
             public readonly RoadObjectFactory.Type Type;

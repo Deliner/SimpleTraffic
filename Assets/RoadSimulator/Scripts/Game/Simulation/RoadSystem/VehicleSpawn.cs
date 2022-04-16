@@ -57,13 +57,13 @@ namespace RoadSimulator.Scripts.Game.Simulation.RoadSystem
 
             public void Validate()
             {
-                constantPeriod = Math.Max(Math.Min(constantPeriod, SimulationInfo.MaxSpawnPeriod), SimulationInfo.MinSpawnPeriod);
-                maxPeriod = Math.Max(Math.Min(maxPeriod, SimulationInfo.MaxSpawnPeriod), SimulationInfo.MinSpawnPeriod);
-                minPeriod = Math.Min(Math.Max(minPeriod, SimulationInfo.MinSpawnPeriod), SimulationInfo.MaxSpawnPeriod);
+                constantPeriod = Math.Clamp(constantPeriod, SimulationInfo.MinSpawnPeriod, SimulationInfo.MaxSpawnPeriod);
+                maxPeriod = Math.Clamp(maxPeriod, SimulationInfo.MinSpawnPeriod, SimulationInfo.MaxSpawnPeriod);
+                minPeriod = Math.Clamp(minPeriod, SimulationInfo.MinSpawnPeriod, SimulationInfo.MaxSpawnPeriod);
 
-                constantSpeed = Math.Max(Math.Min(constantSpeed, SimulationInfo.MaxCarSpeed), SimulationInfo.MinCarSpeed);
-                maxSpeed = Math.Max(Math.Min(maxSpeed, SimulationInfo.MaxCarSpeed), SimulationInfo.MinCarSpeed);
-                minSpeed = Math.Min(Math.Max(minSpeed, SimulationInfo.MinCarSpeed), SimulationInfo.MaxCarSpeed);
+                constantSpeed = Math.Clamp(constantSpeed, SimulationInfo.MinCarSpeed, SimulationInfo.MaxCarSpeed);
+                maxSpeed = Math.Clamp(maxSpeed, SimulationInfo.MinCarSpeed, SimulationInfo.MaxCarSpeed);
+                minSpeed = Math.Clamp(minSpeed, SimulationInfo.MinCarSpeed, SimulationInfo.MaxCarSpeed);
             }
         }
     }

@@ -63,12 +63,15 @@ namespace RoadSimulator.Scripts.UI.Popup
                 _spawnParams.setConstantSpeed = speedToggle.isOn;
 
                 _spawnParams.Validate();
+
+                Context.OnDialogClosed();
                 Close();
             }
         }
 
         public void OnCloseClicked()
         {
+            Context.OnDialogClosed();
             Close();
         }
     }

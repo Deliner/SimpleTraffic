@@ -16,21 +16,21 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
 
     public class SelectTool : IRoadBuilderTool
     {
-        public string GetToolName() => "SelectTool";
+        public string GetToolName() => "Sel";
         public void ActionAt(IRoadBuilder builder, Vector2Int coord) => builder.OnSelectAt(coord);
         public RoadObjectFactory.Type? GetRoadType() => null;
     }
 
     public class RemoveTool : IRoadBuilderTool
     {
-        public string GetToolName() => "RemoveTool";
+        public string GetToolName() => "Del";
         public void ActionAt(IRoadBuilder builder, Vector2Int coord) => builder.OnRemoveRoadAt(coord);
         public RoadObjectFactory.Type? GetRoadType() => null;
     }
 
     public class Rotate90Tool : IRoadBuilderTool
     {
-        public string GetToolName() => "Rotate90";
+        public string GetToolName() => "+90°";
         public void ActionAt(IRoadBuilder builder, Vector2Int coord) => builder.OnRotate90At(true, coord);
         public RoadObjectFactory.Type? GetRoadType() => null;
     }
@@ -46,43 +46,43 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
     public class RoadTool : BaseRoadTool
     {
         public override RoadObjectFactory.Type? GetRoadType() =>RoadObjectFactory.Type.Road;
-        public override string GetToolName() => "Road";
+        public override string GetToolName() => "R1";
     }
     
     public class PlugTool : BaseRoadTool
     {
         public override RoadObjectFactory.Type? GetRoadType() =>RoadObjectFactory.Type.Plug;
-        public override string GetToolName() => "Plug";
+        public override string GetToolName() => "End";
     }
 
     public class CornerTool : BaseRoadTool
     {
         public override RoadObjectFactory.Type? GetRoadType() =>  RoadObjectFactory.Type.Corner;
-        public override string GetToolName() => "Corner";
+        public override string GetToolName() => "C";
     }
 
     public class CrossroadTool : BaseRoadTool
     {
         public override RoadObjectFactory.Type? GetRoadType() => RoadObjectFactory.Type.Crossroad;
-        public override string GetToolName() => "Crossroad";
+        public override string GetToolName() => "X";
     }
 
     public class TcrossroadTool : BaseRoadTool
     {
         public override RoadObjectFactory.Type? GetRoadType() => RoadObjectFactory.Type.CrossroadT;
-        public override string GetToolName() => "CrossroadT";
+        public override string GetToolName() => "T";
     }
 
     public class HalfRoadTool : BaseRoadTool
     {
         public override RoadObjectFactory.Type? GetRoadType() => RoadObjectFactory.Type.HalfRoad;
-        public override string GetToolName() => "HalfRoad";
+        public override string GetToolName() => "R0.5";
     }
 
     public class DualRoadTool : BaseRoadTool
     {
         public override RoadObjectFactory.Type? GetRoadType() => RoadObjectFactory.Type.DualRoad;
-        public override string GetToolName() => "DualRoad";
+        public override string GetToolName() => "R2";
     }
     
     public class GeneratorTool : BaseRoadTool

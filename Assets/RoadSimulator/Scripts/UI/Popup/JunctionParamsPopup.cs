@@ -25,16 +25,18 @@ namespace RoadSimulator.Scripts.UI.Popup
 
         public void OnApplyClicked()
         {
-            if (int.TryParse(maxSpeedInput.text, out var maxSpeed) && float.TryParse(maxSpeedInput.text, out var phaseInterval))
+            if (int.TryParse(maxSpeedInput.text, out var maxSpeed) && float.TryParse(phaseIntervalInput.text, out var phaseInterval))
             {
-                _junctionParams.PhaseInterval = Math.Max(Math.Min(phaseInterval, SimulationInfo.MaxPhaseInterval), SimulationInfo.MinPhaseInterval);
-                _junctionParams.MaxSpeed = Math.Max(Math.Min(maxSpeed, SimulationInfo.MaxCarSpeed), SimulationInfo.MinCarSpeed);
+                _junctionParams.PhaseInterval = Math.Clamp(phaseInterval, SimulationInfo.MinPhaseInterval, SimulationInfo.MaxPhaseInterval);
+                _junctionParams.MaxSpeed = Math.Clamp(maxSpeed, SimulationInfo.MinCarSpeed, SimulationInfo.MaxCarSpeed);
+                Context.OnDialogClosed();
                 Close();
             }
         }
 
         public void OnCloseClicked()
         {
+            Context.OnDialogClosed();
             Close();
         }
     }

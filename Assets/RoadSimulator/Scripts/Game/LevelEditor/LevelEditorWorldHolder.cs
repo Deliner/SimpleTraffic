@@ -21,6 +21,8 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
 
         private readonly ICallback _callback;
 
+        private bool _cursorLocked = false;
+
         public LevelEditorWorldHolder(ICallback callback, RoadObjectFactory.Resources resources)
         {
             _roadObjectFactory = new RoadObjectFactory(resources);
@@ -51,14 +53,17 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
 
         public HashSet<LevelEditorRoad.Data> GetRoadDataSet() => _world.GetRoadDataSet();
 
+        public void UnlockCursor() => _cursorLocked = false;
+
         public void OnClick(Vector3 position)
         {
-            _currentTool?.ActionAt(this, LevelEditorWorld.TransformPositionToWorldCoord(position));
+            if (!_cursorLocked)
+                _currentTool?.ActionAt(this, LevelEditorWorld.TransformPositionToWorldCoord(position));
         }
 
         public void OnNewMousePosition(Vector3 position)
         {
-            if (_cursorObject != null)
+            if (_cursorObject != null && !_cursorLocked)
             {
                 _cursorObject.transform.position = LevelEditorWorld.TransformPositionToWorldGrid(position);
             }
@@ -117,6 +122,7 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
             var roadObject = TryGetObjectUnderCursor();
             if (IsRoadObject(roadObject, out var roadComponent))
             {
+                _cursorLocked = true;
                 _callback.OnUpdateRoadParams(roadComponent!.GetData().RoadParams);
             }
         }

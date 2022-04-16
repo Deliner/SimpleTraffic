@@ -23,13 +23,15 @@ namespace RoadSimulator.Scripts.UI.Popup
         {
             if (int.TryParse(maxSpeedInput.text, out var maxSpeed))
             {
-                _roadParams.MaxSpeed = Math.Max(Math.Min(maxSpeed, SimulationInfo.MaxCarSpeed), SimulationInfo.MinCarSpeed);
+                _roadParams.MaxSpeed = Math.Clamp(maxSpeed, SimulationInfo.MinCarSpeed, SimulationInfo.MaxCarSpeed);
+                Context.OnDialogClosed();
                 Close();
             }
         }
 
         public void OnCloseClicked()
         {
+            Context.OnDialogClosed();
             Close();
         }
     }

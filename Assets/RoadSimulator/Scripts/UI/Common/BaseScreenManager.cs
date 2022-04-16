@@ -14,7 +14,7 @@ namespace RoadSimulator.Scripts.UI.Common
 
         private readonly Stack<GameObject> _currentPopups = new();
         private readonly Stack<GameObject> _currentPanels = new();
-     
+
         public void ClosePopup()
         {
             var topmostPopup = _currentPopups.Pop();
@@ -113,6 +113,10 @@ namespace RoadSimulator.Scripts.UI.Common
             }
 
             onComplete?.Invoke();
+        }
+
+        public virtual void OnDialogClosed()
+        {
         }
     }
 }
