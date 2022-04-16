@@ -9,6 +9,8 @@ namespace RoadSimulator.Scripts.Game.Simulation.Agent
     [RequireComponent(typeof(NavMeshAgent))]
     public sealed class Vehicle : Agent
     {
+        [SerializeField] private Bumper bumper;
+
         public Transform front;
 
         private const float BlockedDistance = .25f;
@@ -51,7 +53,7 @@ namespace RoadSimulator.Scripts.Game.Simulation.Agent
 
         protected override bool CheckStop()
         {
-            return _isBlocked || isWaiting;
+            return _isBlocked || isWaiting || bumper.IsBlocked();
         }
 
         public override void OnTriggerEnter(Collider col)
