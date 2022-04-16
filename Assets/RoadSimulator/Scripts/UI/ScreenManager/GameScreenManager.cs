@@ -1,13 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
-using Common;
-using UnityEngine;
+using RoadSimulator.Scripts.UI.Common;
 using UnityEngine.SceneManagement;
 
-public class GameScreenManager : BaseScreenManager
+namespace RoadSimulator.Scripts.UI.ScreenManager
 {
-    public void OnCloseButtonClicked()
+    public class GameScreenManager : BaseScreenManager
     {
-        SceneManager.LoadScene("MainScreen");
+        public void OnCloseButtonClicked()
+        {
+            SceneManager.LoadScene("MainScreen");
+        }
     }
 }

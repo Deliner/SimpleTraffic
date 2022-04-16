@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Common
+namespace RoadSimulator.Scripts.UI.Common
 {
     public class SafeArea : MonoBehaviour
     {

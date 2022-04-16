@@ -20,6 +20,8 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
 
         private bool _isPlaced;
 
+        private IRoadParams _roadParams;
+
         private readonly Hashtable _enteredCollider = new();
 
         public void SetPlaced()
@@ -36,7 +38,8 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
         public Data GetData()
         {
             var objectTransform = transform;
-            return new Data(type, objectTransform.position, objectTransform.rotation);
+            _roadParams ??= RoadParamsFactory.GetParams(type);
+            return new Data(type, objectTransform.position, objectTransform.rotation, _roadParams);
         }
 
         private void OnTriggerEnter(Collider other)
@@ -91,14 +94,17 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
             }
         }
 
+
         public readonly struct Data
         {
             public readonly RoadObjectFactory.Type Type;
+            public readonly IRoadParams RoadParams;
             public readonly Quaternion Rotation;
             public readonly Vector3 Position;
 
-            public Data(RoadObjectFactory.Type type, Vector3 position, Quaternion rotation)
+            public Data(RoadObjectFactory.Type type, Vector3 position, Quaternion rotation, IRoadParams roadParams)
             {
+                RoadParams = roadParams;
                 Position = position;
                 Rotation = rotation;
                 Type = type;

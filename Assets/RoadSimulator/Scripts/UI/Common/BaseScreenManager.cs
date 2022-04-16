@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
 
-namespace Common
+namespace RoadSimulator.Scripts.UI.Common
 {
     public abstract class BaseScreenManager : MonoBehaviour
     {
@@ -79,7 +79,7 @@ namespace Common
         {
             var popupGameObject = Instantiate(request.asset, canvas.transform, false) as GameObject;
             Assert.IsNotNull(popupGameObject);
-            var popupComponent = popupGameObject.GetComponent<BasePopup>();
+            var popupComponent = popupGameObject!.GetComponent<BasePopup>();
 
             popupComponent.SetParentScreenManager(this);
             popupComponent.OnAttach();

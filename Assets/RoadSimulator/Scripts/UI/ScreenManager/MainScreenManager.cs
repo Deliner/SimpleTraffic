@@ -1,11 +1,14 @@
-using Common;
+using RoadSimulator.Scripts.UI.Common;
 using UnityEngine.SceneManagement;
 
-public class MainScreenManager : BaseScreenManager
+namespace RoadSimulator.Scripts.UI.ScreenManager
 {
-    public void OnPlayClicked()
+    public class MainScreenManager : BaseScreenManager
     {
-        // OpenPopup<LevelEditorSettingsPopup>("Popups/LevelEditorSettingsPopupPrefab");
-        SceneManager.LoadScene("LevelEditorScreen");
+        public void OnPlayClicked()
+        {
+            // OpenPopup<LevelEditorSettingsPopup>("Popups/LevelEditorSettingsPopupPrefab");
+            SceneManager.LoadScene("LevelEditorScreen");
+        }
     }
 }

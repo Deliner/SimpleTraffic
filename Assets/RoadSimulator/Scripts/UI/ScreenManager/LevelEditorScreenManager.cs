@@ -1,8 +1,8 @@
 using System;
-using Common;
 using RoadSimulator.Scripts.Game.LevelEditor;
-using RoadSimulator.Scripts.Game.Simulation;
 using RoadSimulator.Scripts.Game.Simulation.World;
+using RoadSimulator.Scripts.UI.Common;
+using RoadSimulator.Scripts.UI.Popup;
 using RoadSimulator.Scripts.UI.Utils;
 using RoadSimulator.Scripts.UI.View;
 using UnityEngine;
@@ -95,5 +95,23 @@ namespace RoadSimulator.Scripts.UI.ScreenManager
         public Vector3 OnGetCameraPosition() => editorCamera.transform.position;
 
         public Ray OnGetRayUnderCursor() => editorCamera.ScreenPointToRay(Input.mousePosition);
+
+        public void OnUpdateRoadParams(IRoadParams roadParams)
+        {
+            switch (roadParams.GetParamsType())
+            {
+                case RoadParamsFactory.Type.Default:
+                    OpenPopup<DefaultRoadParamsPopup>("Popups/DefaultRoadParamsPopup", roadParams);
+                    break;
+                case RoadParamsFactory.Type.Junction:
+                    OpenPopup<JunctionParamsPopup>("Popups/JunctionParamsPopup", roadParams);
+                    break;
+                case RoadParamsFactory.Type.Plug:
+                    OpenPopup<PlugParamsPopup>("Popups/PlugParamsPopup", roadParams);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
     }
 }

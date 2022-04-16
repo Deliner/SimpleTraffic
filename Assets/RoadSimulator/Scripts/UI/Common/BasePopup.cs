@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Common
+namespace RoadSimulator.Scripts.UI.Common
 {
     public class BasePopup : MonoBehaviour
     {

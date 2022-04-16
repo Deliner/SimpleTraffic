@@ -1,4 +1,5 @@
 ﻿using System;
+using RoadSimulator.Scripts.Game.LevelEditor;
 using RoadSimulator.Scripts.Game.Simulation.World;
 using UnityEngine;
 
@@ -6,14 +7,13 @@ namespace RoadSimulator.Scripts.Game.Simulation.RoadSystem
 {
     public class Junction : Road
     {
-        public Phase[] phases;
-
-        public float phaseInterval = 5;
+        [SerializeField] private float phaseInterval = 5;
+        [SerializeField] private Phase[] phases;
 
         private int _currentPhase;
         private float _phaseTimer;
 
-        public void Start()
+        private void Start()
         {
             if (phases.Length > 0)
                 phases[0].Apply();
@@ -24,6 +24,16 @@ namespace RoadSimulator.Scripts.Game.Simulation.RoadSystem
             _phaseTimer += Time.deltaTime;
             if (_phaseTimer > phaseInterval)
                 ChangePhase();
+        }
+
+        public override void SetParams(IRoadParams roadParams)
+        {
+            if (roadParams is not JunctionParams @params)
+                throw new Exception($"Expected {typeof(JunctionParams)} but received {roadParams.GetParamsType()}");
+
+            phaseInterval = @params.PhaseInterval;
+
+            base.SetParams(roadParams);
         }
 
         private void ChangePhase()

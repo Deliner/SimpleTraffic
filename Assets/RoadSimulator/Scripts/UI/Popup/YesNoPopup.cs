@@ -1,15 +1,18 @@
 using System;
-using Common;
+using RoadSimulator.Scripts.UI.Common;
 
-public class YesNoPopup : BasePopup
+namespace RoadSimulator.Scripts.UI.Popup
 {
-    public void OnYesClicked()
+    public class YesNoPopup : BasePopup
     {
-        (GetArguments() as Action)?.Invoke();
-    }
+        public void OnYesClicked()
+        {
+            (GetArguments() as Action)?.Invoke();
+        }
 
-    public void OnNoClicked()
-    {
-        Close();
+        public void OnNoClicked()
+        {
+            Close();
+        }
     }
 }

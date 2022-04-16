@@ -31,7 +31,7 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
 
         public void UpdateSelectedTool(ITool tool)
         {
-            if (tool is not IRoadBuilderTool builderTool) //TODO why it works?
+            if (tool is not IRoadBuilderTool builderTool)
                 throw new Exception($"Expected {typeof(IRoadBuilderTool)}");
 
             _currentTool = builderTool;
@@ -114,6 +114,11 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
 
         public void OnSelectAt(Vector2Int coord)
         {
+            var roadObject = TryGetObjectUnderCursor();
+            if (IsRoadObject(roadObject, out var roadComponent))
+            {
+                _callback.OnUpdateRoadParams(roadComponent!.GetData().RoadParams);
+            }
         }
 
         [CanBeNull]
@@ -172,6 +177,7 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
         {
             public Vector3 OnGetCameraPosition();
             public Ray OnGetRayUnderCursor();
+            public void OnUpdateRoadParams(IRoadParams roadParams);
         }
     }
 }

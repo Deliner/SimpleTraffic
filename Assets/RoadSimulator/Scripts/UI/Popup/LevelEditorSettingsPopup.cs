@@ -1,13 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
-using Common;
-using UnityEngine;
+using RoadSimulator.Scripts.UI.Common;
 
-public class LevelEditorSettingsPopup : BasePopup
+namespace RoadSimulator.Scripts.UI.Popup
 {
-
-    public void OnCloseButtonPressed()
+    public class LevelEditorSettingsPopup : BasePopup
     {
-        Close();
+
+        public void OnCloseButtonPressed()
+        {
+            Close();
+        }
     }
 }

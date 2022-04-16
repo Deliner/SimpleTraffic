@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Common
+namespace RoadSimulator.Scripts.UI.Utils
 {
     public class CursorPositionChecker
     {

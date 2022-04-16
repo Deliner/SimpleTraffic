@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using RoadSimulator.Scripts.Game.Base;
 using RoadSimulator.Scripts.Game.LevelEditor;
+using RoadSimulator.Scripts.Game.Simulation.RoadSystem;
 using Unity.AI.Navigation;
 using UnityEngine;
 
@@ -36,8 +37,8 @@ namespace RoadSimulator.Scripts.Game.Simulation.World
         private void PlaceRoads(IEnumerator<LevelEditorRoad.Data> enumerator)
         {
 
-            Vector3 shift = Vector3.zero;
-            int counter = 0;
+            var shift = Vector3.zero;
+            var counter = 0;
             while (enumerator.MoveNext())
             {
                 shift += enumerator.Current.Position;
@@ -63,6 +64,8 @@ namespace RoadSimulator.Scripts.Game.Simulation.World
             gameObject.transform.position = shiftedPosition;
             gameObject.transform.rotation = data.Rotation;
             gameObject.transform.SetParent(_roadParent);
+
+            gameObject.GetComponent<NavSection>().SetParams(data.RoadParams);
 
             if (_first)
             {

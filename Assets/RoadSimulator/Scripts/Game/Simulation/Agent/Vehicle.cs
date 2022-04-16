@@ -19,15 +19,19 @@ namespace RoadSimulator.Scripts.Game.Simulation.Agent
 
         private bool _isBlocked;
 
-        public void Initialize(NavSection navSection, NavConnection destination, int vehicleMaxSpeed)
+        private int _preferredSpeed;
+
+        public void Initialize(NavSection navSection, NavConnection destination, int preferredSpeed)
         {
             _currentOutConnection = destination;
             _currentNavSection = navSection;
             RegisterVehicle(true);
 
+            _preferredSpeed = preferredSpeed;
+
             agent.enabled = true;
             agent.destination = destination.transform.position;
-            agent.speed = TrafficSystem.GetAgentSpeedFromKph(Mathf.Min(navSection.speedLimit, vehicleMaxSpeed));
+            agent.speed = TrafficSystem.GetAgentSpeedFromKph(Mathf.Min(navSection.speedLimit, _preferredSpeed));
         }
 
         private void RegisterVehicle(bool isAdd)
@@ -85,7 +89,7 @@ namespace RoadSimulator.Scripts.Game.Simulation.Agent
         private void SwitchRoad(NavConnection newConnection)
         {
             RegisterVehicle(false);
-            currentSpeed = TrafficSystem.GetAgentSpeedFromKph(Mathf.Min(newConnection.navSection.speedLimit, maxSpeed));
+            currentSpeed = TrafficSystem.GetAgentSpeedFromKph(Mathf.Min(newConnection.navSection.speedLimit, _preferredSpeed));
             agent.speed = currentSpeed;
 
             _currentNavSection = newConnection.navSection;

@@ -9,8 +9,6 @@ namespace RoadSimulator.Scripts.Game.Simulation.Agent
     {
         [SerializeField] protected NavMeshAgent agent;
 
-        public int maxSpeed = 120;
-
         public float currentSpeed;
         protected bool isWaiting { get; private set; }
 
