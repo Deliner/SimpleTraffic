@@ -48,12 +48,12 @@ namespace RoadSimulator.Scripts.UI.ScreenManager
 
         public void OnCloseButtonPressed()
         {
-            OpenPopup<YesNoPopup>("Popups/YesNoPopup", new Action(() => { SceneManager.LoadScene("MainScreen"); }));
+            OpenPopup<YesNoPopup>("Popups/ExitPopup", new Action(() => { SceneManager.LoadScene("MainScreen"); }));
         }
 
         public void OnRubbishButtonPressed()
         {
-            OpenPopup<YesNoPopup>("Popups/YesNoPopup", new Action(() => { _levelEditorWorldHolder.Reset(); }));
+            OpenPopup<YesNoPopup>("Popups/ResetPopup", new Action(() => { _levelEditorWorldHolder.Reset(); }));
         }
 
         public void OnRunButtonPressed()
