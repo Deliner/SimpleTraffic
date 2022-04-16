@@ -26,18 +26,18 @@ namespace RoadSimulator.Scripts.UI.Popup
         public override void OnCreated()
         {
             _plugParams = GetArguments() as PlugParams;
-            var spawnParams = _plugParams!.SpawnParams;
+            _spawnParams = _plugParams!.SpawnParams;
 
 
-            constantPeriodInput.text = spawnParams.constantPeriod.ToString(CultureInfo.InvariantCulture);
-            maxPeriodInput.text = spawnParams.maxPeriod.ToString(CultureInfo.InvariantCulture);
-            minPeriodInput.text = spawnParams.minPeriod.ToString(CultureInfo.InvariantCulture);
-            periodToggle.isOn = spawnParams.setConstantPeriod;
+            constantPeriodInput.text = _spawnParams.constantPeriod.ToString(CultureInfo.InvariantCulture);
+            maxPeriodInput.text = _spawnParams.maxPeriod.ToString(CultureInfo.InvariantCulture);
+            minPeriodInput.text = _spawnParams.minPeriod.ToString(CultureInfo.InvariantCulture);
+            periodToggle.isOn = _spawnParams.setConstantPeriod;
 
-            constantSpeedInput.text = spawnParams.constantSpeed.ToString(CultureInfo.InvariantCulture);
-            maxSpeedInput.text = spawnParams.maxSpeed.ToString(CultureInfo.InvariantCulture);
-            minSpeedInput.text = spawnParams.minSpeed.ToString(CultureInfo.InvariantCulture);
-            speedToggle.isOn = spawnParams.setConstantSpeed;
+            constantSpeedInput.text = _spawnParams.constantSpeed.ToString(CultureInfo.InvariantCulture);
+            maxSpeedInput.text = _spawnParams.maxSpeed.ToString(CultureInfo.InvariantCulture);
+            minSpeedInput.text = _spawnParams.minSpeed.ToString(CultureInfo.InvariantCulture);
+            speedToggle.isOn = _spawnParams.setConstantSpeed;
         }
 
         public void OnApplyClicked()

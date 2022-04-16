@@ -21,14 +21,18 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
 
         private readonly ICallback _callback;
 
-        private bool _cursorLocked = false;
+        private bool _cursorLocked;
 
         public LevelEditorWorldHolder(ICallback callback, RoadObjectFactory.Resources resources)
         {
             _roadObjectFactory = new RoadObjectFactory(resources);
             _world = LevelEditorWorld.GetInstance();
-            _world.Reset();
             _callback = callback;
+
+            if (!_world.IsWorldEmpty())
+            {
+                RestoreGameObjects();
+            }
         }
 
         public void UpdateSelectedTool(ITool tool)
@@ -125,6 +129,29 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
                 _cursorLocked = true;
                 _callback.OnUpdateRoadParams(roadComponent!.GetData().RoadParams);
             }
+        }
+
+        private void RestoreGameObjects()
+        {
+            var dataSet = _world.GetRoadDataSet();
+            _world.Reset();
+
+            foreach (var data in dataSet)
+            {
+                CreateObjectFromData(data);
+            }
+        }
+
+        private void CreateObjectFromData(LevelEditorRoad.Data data)
+        {
+            var gameObject = _roadObjectFactory.GetRoadObject(data.Type);
+            gameObject.transform.position = data.Position;
+            gameObject.transform.rotation = data.Rotation;
+
+            var component = gameObject.GetComponent<LevelEditorRoad>();
+            component.UpdateParams(data.RoadParams);
+
+            _world.PlaceRoad(component, out _);
         }
 
         [CanBeNull]

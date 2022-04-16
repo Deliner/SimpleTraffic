@@ -22,6 +22,8 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
 
         public bool LevelIsOk() => _pendingConnections.Count == 0 && _closedConnections.Count > 0;
 
+        public bool IsWorldEmpty() => _placeObjects.Count == 0;
+
         public void Reset()
         {
             _pendingConnections.Clear();

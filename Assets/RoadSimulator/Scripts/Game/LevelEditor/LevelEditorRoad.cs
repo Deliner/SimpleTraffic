@@ -42,6 +42,8 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
             return new Data(type, objectTransform.position, objectTransform.rotation, _roadParams);
         }
 
+        public void UpdateParams(IRoadParams roadParams) => _roadParams = roadParams;
+
         private void OnTriggerEnter(Collider other)
         {
             if (!_isPlaced)
@@ -94,7 +96,7 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
             }
         }
 
-    
+
         public readonly struct Data
         {
             public readonly RoadObjectFactory.Type Type;
