@@ -8,6 +8,7 @@ namespace RoadSimulator.Scripts.UI.Popup
         public void OnYesClicked()
         {
             (GetArguments() as Action)?.Invoke();
+            Close();
         }
 
         public void OnNoClicked()

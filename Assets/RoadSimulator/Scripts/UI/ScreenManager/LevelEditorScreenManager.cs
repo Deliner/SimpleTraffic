@@ -51,6 +51,11 @@ namespace RoadSimulator.Scripts.UI.ScreenManager
             OpenPopup<YesNoPopup>("Popups/YesNoPopup", new Action(() => { SceneManager.LoadScene("MainScreen"); }));
         }
 
+        public void OnRubbishButtonPressed()
+        {
+            OpenPopup<YesNoPopup>("Popups/YesNoPopup", new Action(() => { _levelEditorWorldHolder.Reset(); }));
+        }
+
         public void OnRunButtonPressed()
         {
             if (_levelEditorWorldHolder.ReadyToSimulate())

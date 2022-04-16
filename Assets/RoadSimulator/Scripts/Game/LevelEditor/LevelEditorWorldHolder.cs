@@ -59,6 +59,8 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
 
         public void UnlockCursor() => _cursorLocked = false;
 
+        public void Reset() => _world.ResetWithObjects();
+
         public void OnClick(Vector3 position)
         {
             if (!_cursorLocked)

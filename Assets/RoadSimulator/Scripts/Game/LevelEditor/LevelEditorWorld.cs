@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace RoadSimulator.Scripts.Game.LevelEditor
 {
@@ -29,6 +30,16 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
             _pendingConnections.Clear();
             _closedConnections.Clear();
             _placeObjects.Clear();
+        }
+
+        public void ResetWithObjects()
+        {
+            foreach (var component in _placeObjects.Keys)
+            {
+                Object.Destroy((component as LevelEditorRoad)!.gameObject);
+            }
+
+            Reset();
         }
 
         public void PlaceRoad(LevelEditorRoad road, out bool isPlaced)
