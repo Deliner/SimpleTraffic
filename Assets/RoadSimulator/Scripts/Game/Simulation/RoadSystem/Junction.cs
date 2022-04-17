@@ -13,17 +13,19 @@ namespace RoadSimulator.Scripts.Game.Simulation.RoadSystem
         private int _currentPhase;
         private float _phaseTimer;
 
-        private void Start()
+        protected void Start()
         {
             if (phases.Length > 0)
                 phases[0].Apply();
         }
 
-        private void Update()
+        protected override void Update()
         {
             _phaseTimer += Time.deltaTime;
             if (_phaseTimer > phaseInterval)
                 ChangePhase();
+            
+            base.Update();
         }
 
         public override void SetParams(IRoadParams roadParams)

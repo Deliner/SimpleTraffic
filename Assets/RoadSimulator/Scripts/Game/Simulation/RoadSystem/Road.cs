@@ -15,7 +15,7 @@ namespace RoadSimulator.Scripts.Game.Simulation.RoadSystem
         private float _timePassed;
         private int _carPassed;
 
-        private void Update()
+        protected virtual void Update()
         {
             _timePassed += Time.deltaTime;
         }
@@ -48,7 +48,7 @@ namespace RoadSimulator.Scripts.Game.Simulation.RoadSystem
 
         private sealed class BandwidthInformer : IBandwidthInformer
         {
-            private Road _road;
+            private readonly Road _road;
 
             public float value => _road.carBandwidth;
 

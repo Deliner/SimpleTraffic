@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using RoadSimulator.Scripts.Game.Simulation.RoadSystem;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace RoadSimulator.Scripts.Game.Simulation.World
 {
@@ -9,7 +11,7 @@ namespace RoadSimulator.Scripts.Game.Simulation.World
         public static TrafficSystem instance => InstanceHolder.trafficSystem;
 
         public bool drawGizmos;
-        public GameObject vehiclePrefab;
+        public GameObject[] vehiclePrefab;
         public Transform folder;
 
         private int _vehicleSpawnAttempts;
@@ -30,7 +32,8 @@ namespace RoadSimulator.Scripts.Game.Simulation.World
         {
             while (true)
             {
-                spawn.TryToSpawn(vehiclePrefab, folder.transform);
+                var prefab = vehiclePrefab[Random.Range(0, vehiclePrefab.Length)];
+                spawn.TryToSpawn(prefab, folder.transform);
                 yield return new WaitForSeconds(spawn.GetDelayBeforeNextSpawn());
             }
             // ReSharper disable once IteratorNeverReturns

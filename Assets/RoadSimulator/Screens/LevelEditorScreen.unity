@@ -1186,9 +1186,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 672505318}
   safeArea: {fileID: 1379346979}
+  resourcesHolder: {fileID: 569660898}
   toolListView: {fileID: 983470718}
   editorCamera: {fileID: 564424305}
-  resourcesHolder: {fileID: 569660898}
 --- !u!224 &1142120093 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6943555570390740300, guid: 28ebb92f2a49b584e856529e9034929a,
