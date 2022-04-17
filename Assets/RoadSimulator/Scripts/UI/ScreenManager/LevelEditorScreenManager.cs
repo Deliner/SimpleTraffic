@@ -1,4 +1,5 @@
 using System;
+using RoadSimulator.Scripts.Game.Base;
 using RoadSimulator.Scripts.Game.LevelEditor;
 using RoadSimulator.Scripts.Game.Simulation.World;
 using RoadSimulator.Scripts.UI.Common;
@@ -10,23 +11,23 @@ using UnityEngine.SceneManagement;
 
 namespace RoadSimulator.Scripts.UI.ScreenManager
 {
-    public class LevelEditorScreenManager : BaseScreenManager, ToolListView.ICallback, LevelEditorInputHandler.ICallback, LevelEditorWorldHolder.ICallback
+    public class LevelEditorScreenManager : BaseScreenManager, ToolListView.ICallback, InputHandler.ICallback, LevelEditorWorldHolder.ICallback
     {
-        [SerializeField] private ToolListView toolListView;
-
-        [SerializeField] private Camera editorCamera;
-
         [SerializeField] private RoadResourcesHolder resourcesHolder;
+        [SerializeField] private ToolListView toolListView;
+        [SerializeField] private Camera editorCamera;
 
         private LevelEditorWorldHolder _levelEditorWorldHolder;
         private CursorPositionChecker _cursorPositionChecker;
-        private LevelEditorInputHandler _inputHandler;
+        private InputHandler _inputHandler;
+
+        private bool _inputLocked;
 
         private void Start()
         {
             _cursorPositionChecker = new CursorPositionChecker(safeArea.transform);
             _levelEditorWorldHolder = new LevelEditorWorldHolder(this, resourcesHolder.GetResources());
-            _inputHandler = new LevelEditorInputHandler(this);
+            _inputHandler = new InputHandler(this);
 
             toolListView.Init(this, ToolFactory.GetAllTools());
         }
@@ -43,7 +44,7 @@ namespace RoadSimulator.Scripts.UI.ScreenManager
 
         public override void OnDialogClosed()
         {
-            _levelEditorWorldHolder.UnlockCursor();
+            _inputLocked = false;
         }
 
         public void OnCloseButtonPressed()
@@ -77,25 +78,28 @@ namespace RoadSimulator.Scripts.UI.ScreenManager
 
         public void OnPressedMove(Vector3 oldPosition, Vector3 newPosition)
         {
+            if (_inputLocked)
+                return;
+
             editorCamera.transform.position += editorCamera.ScreenToWorldPoint(oldPosition) - editorCamera.ScreenToWorldPoint(newPosition);
         }
 
         public void OnClick(Vector3 position)
         {
-            if (_cursorPositionChecker.IsOverGUI(position))
-            {
+            if (_inputLocked)
                 return;
-            }
+            if (_cursorPositionChecker.IsOverGUI(position))
+                return;
 
             _levelEditorWorldHolder.OnClick(editorCamera.ScreenToWorldPoint(position));
         }
 
         public void OnNewMousePosition(Vector3 position)
         {
-            if (_cursorPositionChecker.IsOverGUI(position))
-            {
+            if (_inputLocked)
                 return;
-            }
+            if (_cursorPositionChecker.IsOverGUI(position))
+                return;
 
             _levelEditorWorldHolder.OnNewMousePosition(editorCamera.ScreenToWorldPoint(position));
         }
@@ -108,6 +112,7 @@ namespace RoadSimulator.Scripts.UI.ScreenManager
 
         public void OnUpdateRoadParams(IRoadParams roadParams)
         {
+            _inputLocked = true;
             switch (roadParams.GetParamsType())
             {
                 case RoadParamsFactory.Type.Default:

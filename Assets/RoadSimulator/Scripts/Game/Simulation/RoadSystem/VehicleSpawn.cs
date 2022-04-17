@@ -13,7 +13,7 @@ namespace RoadSimulator.Scripts.Game.Simulation.RoadSystem
         public Transform spawn;
         public Road road;
 
-        [SerializeField] private SpawnParams spawnParams;
+        private SpawnParams _spawnParams;
 
         private readonly HashSet<Collider> _enteredColliders = new();
 
@@ -25,10 +25,12 @@ namespace RoadSimulator.Scripts.Game.Simulation.RoadSystem
                 vehicle.Initialize(road, destination, GetVehicleSpeed());
             }
         }
+        
+        public void SetSpawnParams(SpawnParams spawnParams) => _spawnParams = spawnParams;
 
-        public float GetDelayBeforeNextSpawn() => spawnParams.setConstantPeriod ? spawnParams.constantPeriod : Random.Range(spawnParams.minPeriod, spawnParams.maxPeriod);
+        public float GetDelayBeforeNextSpawn() => _spawnParams.setConstantPeriod ? _spawnParams.constantPeriod : Random.Range(_spawnParams.minPeriod, _spawnParams.maxPeriod);
 
-        private int GetVehicleSpeed() => spawnParams.setConstantSpeed ? spawnParams.constantSpeed : Random.Range(spawnParams.minSpeed, spawnParams.maxSpeed);
+        private int GetVehicleSpeed() => _spawnParams.setConstantSpeed ? _spawnParams.constantSpeed : Random.Range(_spawnParams.minSpeed, _spawnParams.maxSpeed);
 
         private bool CanSpawn() => _enteredColliders.Count == 0;
 

@@ -7,7 +7,8 @@ namespace RoadSimulator.Scripts.Game.Simulation.RoadSystem
 {
     public class Road : NavSection
     {
-        public float carBandwidth => _carPassed / _timePassed;
+        public IBandwidthInformer informer => new BandwidthInformer(this);
+        private float carBandwidth => _carPassed / _timePassed;
 
         private const float MaxTimePeriod = 120f;
 
@@ -43,6 +44,23 @@ namespace RoadSimulator.Scripts.Game.Simulation.RoadSystem
                 _timePassed /= 2;
                 _carPassed /= 2;
             }
+        }
+
+        private sealed class BandwidthInformer : IBandwidthInformer
+        {
+            private Road _road;
+
+            public float value => _road.carBandwidth;
+
+            internal BandwidthInformer(Road road)
+            {
+                _road = road;
+            }
+        }
+
+        public interface IBandwidthInformer
+        {
+            public float value { get; }
         }
     }
 }

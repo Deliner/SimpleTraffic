@@ -515,9 +515,10 @@ MonoBehaviour:
   canvas: {fileID: 1003697040}
   safeArea: {fileID: 1413391559}
   resourcesHolder: {fileID: 233499141}
-  roadFolder: {fileID: 1400960594}
   navMeshSurface: {fileID: 1781689600}
   trafficSystem: {fileID: 1729523726}
+  simulationCamera: {fileID: 767560101}
+  roadFolder: {fileID: 1400960594}
 --- !u!1 &1400960591
 GameObject:
   m_ObjectHideFlags: 0
@@ -685,7 +686,6 @@ MonoBehaviour:
   vehiclePrefab: {fileID: 1623311671667096, guid: 1daf70c186c22473a9bfaed829aea442,
     type: 3}
   folder: {fileID: 883007427}
-  maxRoadVehicles: 100
 --- !u!1 &1781689598
 GameObject:
   m_ObjectHideFlags: 0

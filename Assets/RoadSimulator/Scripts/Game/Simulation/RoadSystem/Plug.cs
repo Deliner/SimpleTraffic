@@ -7,15 +7,15 @@ namespace RoadSimulator.Scripts.Game.Simulation.RoadSystem
 {
     public class Plug : Road
     {
-        private VehicleSpawn.SpawnParams _spawnParams;
-        
+        [SerializeField] private VehicleSpawn spawn;
+
         public override void SetParams(IRoadParams roadParams)
         {
             if (roadParams is not PlugParams @params)
                 throw new Exception($"Expected {typeof(JunctionParams)} but received {roadParams.GetParamsType()}");
 
-            _spawnParams = @params.SpawnParams;
-            
+            spawn.SetSpawnParams(@params.SpawnParams);
+
             base.SetParams(roadParams);
         }
 

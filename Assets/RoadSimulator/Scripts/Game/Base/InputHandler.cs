@@ -1,9 +1,9 @@
 ﻿using System;
 using UnityEngine;
 
-namespace RoadSimulator.Scripts.Game.LevelEditor
+namespace RoadSimulator.Scripts.Game.Base
 {
-    public class LevelEditorInputHandler
+    public class InputHandler
     {
         private const int ClickButton = 0;
         private const int MoveButton = 1;
@@ -16,7 +16,7 @@ namespace RoadSimulator.Scripts.Game.LevelEditor
 
         private Vector3 _oldMousePosition = Vector3.zero;
 
-        public LevelEditorInputHandler(ICallback callback)
+        public InputHandler(ICallback callback)
         {
             _callback = callback;
         }

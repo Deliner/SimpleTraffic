@@ -49,13 +49,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 974d121909be4e858c4e4829e98d492f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vehicleSpawns:
-  - {fileID: 1474001865436334539}
-  connections:
-  - {fileID: 6263062071202206397}
-  - {fileID: 4986778865289409926}
-  - {fileID: 5840608230672763772}
   speedLimit: 120
+  spawn: {fileID: 1474001865436334539}
 --- !u!65 &2472171970269556046
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -722,9 +717,15 @@ MonoBehaviour:
   destination: {fileID: 6263062071202206397}
   spawn: {fileID: 7182626840318058602}
   road: {fileID: 3503909514636697258}
-  spawnPeriod: 2
-  maxSpeed: 40
-  minSpeed: 20
+  spawnParams:
+    setConstantPeriod: 1
+    constantPeriod: 2
+    maxPeriod: 3
+    minPeriod: 1
+    setConstantSpeed: 1
+    constantSpeed: 30
+    maxSpeed: 40
+    minSpeed: 20
 --- !u!65 &6814593480698921165
 BoxCollider:
   m_ObjectHideFlags: 0
