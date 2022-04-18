@@ -9,9 +9,6 @@ EditorBuildSettings:
     path: Assets/RoadSimulator/Screens/MainScreen.unity
     guid: efadc9cf31cdfac439d9c0f643d4d8d0
   - enabled: 1
-    path: Assets/RoadSimulator/Screens/GameScreen.unity
-    guid: c8fde609c011530409cbae2c97b4699b
-  - enabled: 1
     path: Assets/RoadSimulator/Screens/LevelEditorScreen.unity
     guid: 2d58746976c96164a9986642729c6646
   - enabled: 1

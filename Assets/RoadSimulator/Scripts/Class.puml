@@ -1,0 +1,82 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+abstract class NavSection
+class Road
+class Junction
+class Plug
+class Bumper
+
+NavSection <|--  Road
+Road <|-- Plug
+Road  <|-- Junction
+
+abstract class Agent
+class Vehicle
+
+Agent  <|-- Vehicle
+Vehicle *-- Bumper
+NavSection *-- Vehicle
+
+'abstract class BaseScreenManager
+'
+'class LevelEditorScreenManager
+'class MainScreenManager
+'class SimulationScreenManager
+'
+'BaseScreenManager  <|-- LevelEditorScreenManager
+'BaseScreenManager  <|-- MainScreenManager
+'BaseScreenManager  <|-- SimulationScreenManager
+
+'
+'abstract class BasePopup
+'
+'class BandwidthPopup
+'class DefaultRoadParamsPopup
+'class JunctionParamsPopup
+'class PlugParamsPopup
+'class YesNoPopup
+'
+'BasePopup  <|-- DefaultRoadParamsPopup
+'BasePopup  <|-- JunctionParamsPopup
+'BasePopup  <|-- PlugParamsPopup
+'BasePopup  <|-- BandwidthPopup
+'BasePopup  <|-- YesNoPopup
+'
+'interface ITool
+'interface IRoadBuilderTool
+'class SelectTool
+'class RemoveTool
+'class Rotate90Tool
+'abstract class BaseRoadTool
+'class RoadTool
+'class PlugTool
+'class CornerTool
+'class CrossRoadTool
+'class TCrossroadTool
+'class HalfRoadTool
+'class DualRoadTool
+'
+'
+'ITool <|-- IRoadBuilderTool
+'IRoadBuilderTool <|-- SelectTool
+'IRoadBuilderTool <|-- RemoveTool
+'IRoadBuilderTool <|-- Rotate90Tool
+'IRoadBuilderTool <|-- BaseRoadTool
+'
+'BaseRoadTool <|-- RoadTool
+'BaseRoadTool <|-- PlugTool
+'BaseRoadTool <|-- CornerTool
+'BaseRoadTool <|-- CrossRoadTool
+'BaseRoadTool <|-- TCrossroadTool
+'BaseRoadTool <|-- HalfRoadTool
+'BaseRoadTool <|-- DualRoadTool
+
+
+
+
+
+
+
+
+@enduml

@@ -34,14 +34,40 @@ namespace RoadSimulator.Scripts.Game.Base
                 case State.CheckPressedMovement:
                     StateCheckPressedMovement();
                     break;
+                case State.CheckDualTouch:
+                    StateCheckDualTouch();
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
 
+        private void StateCheckDualTouch()
+        {
+            if (_currentEvent is TouchClickEvent moveEvent)
+            {
+                switch (Input.touches.Length)
+                {
+                    case > 1:
+                        _state = State.CheckPressedMovement;
+                        _currentEvent = new TouchCameraMoveEvent();
+                        return;
+                    case 1:
+                        _callback.OnNewMousePosition(moveEvent.GetPosition());
+                        _currentEvent = new TouchClickEvent();
+                        return;
+                    case 0:
+                        _callback.OnClick(moveEvent.GetPosition());
+                        break;
+                }
+            }
+
+            Reset();
+        }
+
         private void StateWaitInput()
         {
-            if ((_currentEvent = IsClickStart()) != null)
+            if ((_currentEvent = IsClickStart()) != null && Application.platform != RuntimePlatform.Android)
             {
                 _state = State.CheckClickSuccess;
             }
@@ -49,7 +75,11 @@ namespace RoadSimulator.Scripts.Game.Base
             {
                 _state = State.CheckPressedMovement;
             }
-            else if (_oldMousePosition != Input.mousePosition)
+            else if ((_currentEvent = IsTouchStart()) != null && Application.platform == RuntimePlatform.Android)
+            {
+                _state = State.CheckDualTouch;
+            }
+            else if (_oldMousePosition != Input.mousePosition && Application.platform != RuntimePlatform.Android)
             {
                 _oldMousePosition = Input.mousePosition;
                 _callback.OnNewMousePosition(Input.mousePosition);
@@ -62,11 +92,11 @@ namespace RoadSimulator.Scripts.Game.Base
 
         private static ClickEvent IsClickStart()
         {
-            if (Input.GetMouseButtonDown(ClickButton))
-            {
-                return new MouseClickEvent();
-            }
+            return Input.GetMouseButtonDown(ClickButton) ? new MouseClickEvent() : null;
+        }
 
+        private static ClickEvent IsTouchStart()
+        {
             return Input.touches.Length == 1 ? new TouchClickEvent() : null;
         }
 
@@ -100,13 +130,9 @@ namespace RoadSimulator.Scripts.Game.Base
                 _callback.OnPressedMove(moveEvent.GetOldPosition(), moveEvent.GetNewPosition());
 
                 if (moveEvent.IsFinished())
-                {
                     Reset();
-                }
                 else
-                {
                     _currentEvent = _currentEvent is MouseCameraMoveEvent ? new MouseCameraMoveEvent() : new TouchCameraMoveEvent();
-                }
 
                 return;
             }
@@ -134,7 +160,8 @@ namespace RoadSimulator.Scripts.Game.Base
         {
             WaitInput,
             CheckClickSuccess,
-            CheckPressedMovement
+            CheckPressedMovement,
+            CheckDualTouch
         }
 
         private abstract class Event
@@ -160,7 +187,7 @@ namespace RoadSimulator.Scripts.Game.Base
 
             public override bool IsFinished()
             {
-                return !Input.GetMouseButtonDown(ClickButton) && DateTime.Now.Millisecond - _eventTime > 0;
+                return !Input.GetMouseButtonDown(ClickButton);
             }
 
             public override Vector3 GetPosition()
@@ -175,18 +202,18 @@ namespace RoadSimulator.Scripts.Game.Base
 
             public TouchClickEvent()
             {
-                _position = Input.touches[0].position;
+                _position = Ttv3(Input.touches[0]);
             }
 
-            public override bool IsFinished() //TODO check this shit, maybe doesnt work on phones
+            public override bool IsFinished()
             {
                 return Input.touches.Length == 0;
             }
 
-            public override Vector3 GetPosition()
-            {
-                return _position;
-            }
+            public override Vector3 GetPosition() => _position;
+
+            // private static Vector3 Ttv3(Touch touch) => new(touch.position.x, 0, touch.position.y);
+            private static Vector3 Ttv3(Touch touch) => touch.position;
         }
 
         private abstract class CameraMoveEvent : Event
@@ -236,7 +263,7 @@ namespace RoadSimulator.Scripts.Game.Base
 
             private static Vector3 TwoTouchesToVector(Touch firstTouch, Touch secondTouch)
             {
-                return (firstTouch.position + secondTouch.position) / 2;
+                return (Ttv3(firstTouch) + Ttv3(secondTouch)) / 2;
             }
 
             public override Vector3 GetOldPosition()
@@ -248,6 +275,9 @@ namespace RoadSimulator.Scripts.Game.Base
             {
                 return TwoTouchesToVector(Input.touches[0], Input.touches[1]);
             }
+
+            // private static Vector3 Ttv3(Touch touch) => new(touch.position.x, 0, touch.position.y);
+            private static Vector3 Ttv3(Touch touch) => touch.position;
         }
     }
 }
